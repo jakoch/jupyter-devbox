@@ -41,8 +41,7 @@ You need the following things to run this:
 #### How to run this?
 
 1. Get the source: clone this repository using git or download the zip
-2. Open the source folder in VSCode as a workspace (`File > Open Workspace`)
-3. Then reopen the workspace inside the container (`Remote Containers: Reopen in Container`):
+2. In VSCode open the folder in a container (`Remote Containers: Open Folder in Container`):
 
    This will build the container image (`Starting Dev Container (show log): Building image..`)
 
@@ -55,4 +54,10 @@ You need the following things to run this:
 
    Click `Trust` to allow executing the content of the Notebook.
 
-6. Enjoy! :sunglasses:
+6. You are now able to edit cells and run their content interactively.
+
+   You might also run your scripts inside your browser at http://localhost:8888/
+
+   And you can also read and run your scripts via the Github website: https://github.com/jakoch/jupyter-devbox/blob/main/notebooks/test.ipynb
+
+7. Enjoy! :sunglasses:
