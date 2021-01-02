@@ -58,6 +58,6 @@ You need the following things to run this:
 
    You might also run your scripts inside your browser at http://localhost:8888/
 
-   And you can also read and run your scripts via the Github website: https://github.com/jakoch/jupyter-devbox/blob/main/notebooks/test.ipynb
+   And you can also read and run your scripts via the Github website: [notebooks/test.ipynb](https://github.com/jakoch/jupyter-devbox/blob/main/notebooks/test.ipynb).
 
 7. Enjoy! :sunglasses:
