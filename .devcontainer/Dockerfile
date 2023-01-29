@@ -1,8 +1,8 @@
 # +-----------------------------+
-# | BASE IMAGE             ~27MB|        See https://hub.docker.com/_/debian
+# | BASE IMAGE             ~32MB|        See https://hub.docker.com/_/debian
 # +-----------------------------+
 
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 # +-----------------------------+
 # | ARGS                        |
@@ -32,8 +32,6 @@ RUN apt-get update && \
         gcc g++ build-essential cmake build-essential \
         unzip libjpeg-dev libpng-dev libpq-dev \
         imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
-        # py2
-        python-dev python-pip \
         # py3
         python3 \
         python3-dev \
