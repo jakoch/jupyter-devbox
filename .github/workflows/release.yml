@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Image
         run: |
-          docker build --no-cache --progress=plain -t ghcr.io/${{ github.repository }}:$TAG .devcontainer/Dockerfile
+          docker build --no-cache --progress=plain -t ghcr.io/${{ github.repository }}:$TAG .devcontainer/
 
       - name: Push Image to registry
         run: |
