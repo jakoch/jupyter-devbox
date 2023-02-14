@@ -30,7 +30,7 @@ jobs:
         run: |
           TIMESTAMP=$(TZ=UTC date +%Y%m%d)
           SHORT_HASH=$(echo ${{ github.sha }} | head -c7)
-          echo "TAG=$(TIMESTAMP)-$(SHORT_HASH)" >> $GITHUB_ENV
+          echo "TAG=$TIMESTAMP-$SHORT_HASH" >> $GITHUB_ENV
           echo "Container Version:" $TAG
 
       - name: Build Image
