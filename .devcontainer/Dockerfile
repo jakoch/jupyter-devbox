@@ -59,7 +59,8 @@ RUN pip3 install --upgrade pip && \
     pip3 install opencv-python && \
     pip3 install imutils && \
     pip3 install sqlalchemy && \
-    pip3 install pyautogui
+    pip3 install pyautogui && \
+    pip3 install yfinance
 
 # re-enable dialog mode for apt-get
 ENV DEBIAN_FRONTEND=dialog

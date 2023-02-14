@@ -10,7 +10,7 @@ The pre-installed libraries include OpenCV, Tensorflow, Keras, Numpy, Pandas, Sk
 
 #### What is pre-installed?
 
-Base: Debian 10 - Buster
+Base: Debian 11 - Bullseye
 
 On top of the base image the following tools are installed:
 - zsh, git, cmake
@@ -30,6 +30,7 @@ The installed Python libraries are:
  - imutils
  - sqlalchemy
  - pyautogui
+ - yfinance
 
 #### Prerequisites
 
