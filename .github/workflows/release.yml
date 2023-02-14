@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+# ---------------------------------------------------------------------------------------
+
+  release:
+
+# ---------------------------------------------------------------------------------------
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Versionize
+        run: |
+          TIMESTAMP=$(TZ=UTC date +%Y%m%d)
+          SHORT_HASH=$(echo ${{ github.sha }} | head -c7)
+          echo "TAG=$(TIMESTAMP)-$(SHORT_HASH)" >> $GITHUB_ENV
+          echo "Container Version:" $TAG
+
+      - name: Build Image
+        run: docker build -t ghcr.io/${{ github.repository }}:$TAG .
+
+      - name: Push Image to registry
+        run: |
+          docker push  ghcr.io/${{ github.repository }}:$TAG
+          docker tag   ghcr.io/${{ github.repository }}:$TAG ghcr.io/${{ github.repository }}:latest
+          docker push  ghcr.io/${{ github.repository }}:latest
