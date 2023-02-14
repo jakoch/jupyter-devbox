@@ -3,40 +3,45 @@
 {
 	"name": "jupyter-devbox",
 	"dockerFile": "Dockerfile",
-
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"terminal.integrated.shell.linux": "/bin/zsh"
+    // config settings you would have in ".vscode/settings.json"
+	"customizations": {
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				// VS Code specific
+				"dbaeumer.vscode-eslint",
+				// Python specific
+				"ms-python.python",
+				// C++ specific
+				"ms-vscode.cpptools",
+				"twxs.cmake",
+				// OpenCV specific
+				"did1335.opencv-intellisense",
+				"gsgupta.opencv-snippets"
+			],
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "zsh"
+			}
+		}
 	},
-
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"ms-python.python",
-		"did1335.opencv-intellisense",
-		"gsgupta.opencv-snippets",
-		"dbaeumer.vscode-eslint",
-		"ms-vscode.cpptools",
-		"twxs.cmake"
-	],
-
 	// -- External Ports --
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	//"forwardPorts": [],
-
+	//
 	// -- Internal Ports --
 	// Use the next line if you want to publish any ports.
 	// Jupyter Notebook listening on port 8888...
 	// TensorBoard listening on port 6006...
-    "appPort": ["8888:8888", "6006:6006"],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	//"postCreateCommand": "bash run_jupyter.sh &",
-
-	"postStartCommand": "bash run_jupyter.sh &",
-
+	"appPort": [
+		"8888:8888",
+		"6006:6006"
+	],
+	//
+	"postStartCommand": "bash run_jupyter.sh &"
+	//
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	// "remoteUser": "vscode",
-
+	//"remoteUser": "vscode",
+	//
 	//"mounts": [
 	//	"source=${localWorkspaceFolder},target=/home/ws-mount,type=bind,consistency=cached"
 	//]

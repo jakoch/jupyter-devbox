@@ -34,7 +34,8 @@ jobs:
           echo "Container Version:" $TAG
 
       - name: Build Image
-        run: docker build -t ghcr.io/${{ github.repository }}:$TAG .
+        run: |
+          docker build --no-cache --progress=plain -t ghcr.io/${{ github.repository }}:$TAG .devcontainer/Dockerfile
 
       - name: Push Image to registry
         run: |
