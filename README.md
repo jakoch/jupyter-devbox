@@ -42,6 +42,12 @@ You need the following things to run this:
 
 #### How to run this?
 
+There are two ways of setting the container up.
+
+Either by building the container image locally or by fetching the prebuild container image from the Github container registry. 
+
+##### Building the Container Image locally using VSCode
+
 1. Get the source: clone this repository using git or download the zip
 2. In VSCode open the folder in a container (`Remote Containers: Open Folder in Container`):
 
@@ -63,3 +69,19 @@ You need the following things to run this:
    And you can also read and run your scripts via the Github website: [notebooks/test.ipynb](https://github.com/jakoch/jupyter-devbox/blob/main/notebooks/test.ipynb).
 
 7. Enjoy! :sunglasses:
+
+##### Fetching the prebuild container image
+
+This container image is published to the Github Container Registry (GHCR). 
+
+You may find the package here: https://github.com/jakoch/jupyter-devbox/pkgs/container/jupyter-devbox.
+
+You can install the container image from the command line: 
+```
+> docker pull ghcr.io/jakoch/jupyter-devbox:latest
+```
+
+You might also use this container image as a base image in your own Dockerfile: 
+```
+> FROM ghcr.io/jakoch/jupyter-devbox:latest
+```
