@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # copy jupyter notebook config to root user
-yes | cp -rf conf/.jupyter /root
+cp -rf conf/.jupyter /root
 
 # adding "/root/.local/bin" for pylint (isort, epylint, pylint, etc.)
 export PATH="/root/.local/bin:$PATH"

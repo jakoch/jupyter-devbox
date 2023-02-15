@@ -66,20 +66,20 @@ RUN apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python Packages
-RUN pip3 install --upgrade pip && \
-    pip3 install setuptools --upgrade && \
-    pip3 install wheel && \
-    pip3 install tensorflow && \
-    pip3 install ipykernel docutils jupyter pyyaml pylint h5py && \
-    pip3 install numpy pandas sklearn scipy && \
-    pip3 install matplotlib seaborn pydotplus && \
-    pip3 install keras --no-deps && \
-    pip3 install opencv-python && \
-    pip3 install imutils && \
-    pip3 install sqlalchemy && \
-    pip3 install pyautogui && \
-    pip3 install pandas-datareader requests_cache && \
-    pip3 install yfinance alpha_vantage quandl
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir setuptools --upgrade && \
+    pip3 install --no-cache-dir wheel && \
+    pip3 install --no-cache-dir tensorflow && \
+    pip3 install --no-cache-dir ipykernel docutils jupyter pyyaml pylint h5py && \
+    pip3 install --no-cache-dir numpy pandas sklearn scipy && \
+    pip3 install --no-cache-dir matplotlib seaborn pydotplus && \
+    pip3 install --no-cache-dir keras --no-deps && \
+    pip3 install --no-cache-dir opencv-python && \
+    pip3 install --no-cache-dir imutils && \
+    pip3 install --no-cache-dir sqlalchemy && \
+    pip3 install --no-cache-dir pyautogui && \
+    pip3 install --no-cache-dir pandas-datareader requests_cache && \
+    pip3 install --no-cache-dir yfinance alpha_vantage quandl
 
 # re-enable dialog mode for apt-get
 ENV DEBIAN_FRONTEND=dialog

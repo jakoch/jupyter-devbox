@@ -3,7 +3,7 @@
 {
 	"name": "jupyter-devbox",
 	"dockerFile": "Dockerfile",
-    // config settings you would have in ".vscode/settings.json"
+	// config settings you would have in ".vscode/settings.json"
 	"customizations": {
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
