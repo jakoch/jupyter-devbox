@@ -10,6 +10,7 @@
 			"extensions": [
 				// VS Code specific
 				"dbaeumer.vscode-eslint",
+				"EditorConfig.EditorConfig",
 				// Python specific
 				"ms-python.python",
 				// C++ specific
