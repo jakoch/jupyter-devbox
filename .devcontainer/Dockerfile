@@ -61,14 +61,16 @@ RUN apt-get update && \
         libopencv-dev
 
 # Cleanup
-RUN apt-get autoremove -y && \
-    apt-get clean autoclean && \
+RUN apt-get autoremove -fy && \
+    apt-get clean && \
+    apt-get autoclean -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python Packages
-RUN pip3 install --no-cache-dir --upgrade pip && \
-    pip3 install --no-cache-dir setuptools --upgrade && \
-    pip3 install --no-cache-dir wheel && \
+RUN pip3 config --user set global.progress_bar off && \
+    pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir --upgrade setuptools && \
+    pip3 install --no-cache-dir --upgrade wheel && \
     pip3 install --no-cache-dir tensorflow && \
     pip3 install --no-cache-dir ipykernel docutils jupyter pyyaml pylint h5py && \
     pip3 install --no-cache-dir numpy pandas sklearn scipy && \
