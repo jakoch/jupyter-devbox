@@ -17,6 +17,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - added some more python packages for finance, including:
   pandas-datareader, requests_cache, yfinance, alpha_vantage, quandl
 - added the vscode.extension: yzhang.markdown-all-in-one
+- added .editorconfig and dependabot.yml
 
 ### Changed
 
