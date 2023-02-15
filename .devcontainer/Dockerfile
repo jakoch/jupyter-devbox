@@ -29,6 +29,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 # | PRE-REQUISITES/INIT PACKAGES |
 # +-----------------------------+
 
+# avoid debconf delaying package configuration, since apt-utils is not installed
+RUN apt-get update && \
+    apt-get -y install --no-install-recommends apt-utils dialog 2>&1
+
 # Setup User
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
@@ -39,10 +43,6 @@ RUN groupadd --gid $USER_GID $USERNAME && \
     apt-get install -y sudo && \
     echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
     chmod 0440 /etc/sudoers.d/$USERNAME
-
-# avoid debconf delaying package configuration, since apt-utils is not installed
-RUN apt-get update && \
-    apt-get -y install --no-install-recommends apt-utils dialog 2>&1
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
