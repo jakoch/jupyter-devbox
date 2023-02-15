@@ -46,7 +46,7 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
-        sudo git zsh curl wget \
+        git zsh curl wget \
         gcc g++ build-essential cmake build-essential \
         unzip libjpeg-dev libpng-dev libpq-dev \
         imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
@@ -67,21 +67,23 @@ RUN apt-get autoremove -fy && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python Packages
-RUN pip3 config --user set global.progress_bar off && \
-    pip3 install --no-cache-dir --upgrade pip && \
-    pip3 install --no-cache-dir --upgrade setuptools && \
-    pip3 install --no-cache-dir --upgrade wheel && \
-    pip3 install --no-cache-dir tensorflow && \
-    pip3 install --no-cache-dir ipykernel docutils jupyter pyyaml pylint h5py && \
-    pip3 install --no-cache-dir numpy pandas sklearn scipy && \
-    pip3 install --no-cache-dir matplotlib seaborn pydotplus && \
-    pip3 install --no-cache-dir keras --no-deps && \
-    pip3 install --no-cache-dir opencv-python && \
-    pip3 install --no-cache-dir imutils && \
-    pip3 install --no-cache-dir sqlalchemy && \
-    pip3 install --no-cache-dir pyautogui && \
-    pip3 install --no-cache-dir pandas-datareader requests_cache && \
-    pip3 install --no-cache-dir yfinance alpha_vantage quandl
+RUN pip3 config --user set global.disable-pip-version-check true && \
+    pip3 config --user set global.progress_bar off && \
+    pip3 config --user set global.no-cache-dir true && \
+    pip3 install --upgrade pip && \
+    pip3 install --upgrade setuptools && \
+    pip3 install --upgrade wheel && \
+    pip3 install tensorflow && \
+    pip3 install ipykernel docutils jupyter pyyaml pylint h5py && \
+    pip3 install numpy pandas sklearn scipy && \
+    pip3 install matplotlib seaborn pydotplus && \
+    pip3 install keras --no-deps && \
+    pip3 install opencv-python && \
+    pip3 install imutils && \
+    pip3 install sqlalchemy && \
+    pip3 install pyautogui && \
+    pip3 install pandas-datareader requests_cache && \
+    pip3 install yfinance alpha_vantage quandl
 
 # re-enable dialog mode for apt-get
 ENV DEBIAN_FRONTEND=dialog
