@@ -17,7 +17,9 @@
 				"twxs.cmake",
 				// OpenCV specific
 				"did1335.opencv-intellisense",
-				"gsgupta.opencv-snippets"
+				"gsgupta.opencv-snippets",
+				// Markdown specific
+				"yzhang.markdown-all-in-one"
 			],
 			"settings": {
 				"terminal.integrated.defaultProfile.linux": "zsh"
@@ -37,10 +39,10 @@
 		"6006:6006"
 	],
 	//
-	"postStartCommand": "bash run_jupyter.sh &"
+	"postStartCommand": "bash run_jupyter.sh &",
 	//
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	//"remoteUser": "vscode",
+	"remoteUser": "vscode",
 	//
 	//"mounts": [
 	//	"source=${localWorkspaceFolder},target=/home/ws-mount,type=bind,consistency=cached"

@@ -1,3 +1,8 @@
+#
+# Jupyter Notebook Config
+#
+# https://jupyter-notebook.readthedocs.io/en/master/config.html
+#
 c = get_config()  # get the config object
 c.IPKernelApp.pylab = 'inline'  # in-line figure when using Matplotlib
 # c.NotebookApp.ip = '*'

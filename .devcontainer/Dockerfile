@@ -5,6 +5,13 @@
 FROM debian:bullseye-slim
 
 # +-----------------------------+
+# | METADATA                    |
+# +-----------------------------+
+
+LABEL org.opencontainers.image.vendor = "Jens A. Koch"
+LABEL org.opencontainers.image.source = "https://github.com/jakoch/jupyter-devbox"
+
+# +-----------------------------+
 # | ARGS                        |
 # +-----------------------------+
 
@@ -21,6 +28,17 @@ ENV DEBIAN_FRONTEND=noninteractive
 # +-----------------------------+
 # | PRE-REQUISITES/INIT PACKAGES |
 # +-----------------------------+
+
+# Setup User
+RUN groupadd --gid $USER_GID $USERNAME && \
+    useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
+    #
+    # [Optional] Add Sudo support for this user.
+    # Drop if you don't need to install software after connecting.
+    apt-get update && \
+    apt-get install -y sudo && \
+    echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
+    chmod 0440 /etc/sudoers.d/$USERNAME
 
 # avoid debconf delaying package configuration, since apt-utils is not installed
 RUN apt-get update && \
@@ -60,7 +78,8 @@ RUN pip3 install --upgrade pip && \
     pip3 install imutils && \
     pip3 install sqlalchemy && \
     pip3 install pyautogui && \
-    pip3 install yfinance
+    pip3 install pandas-datareader requests_cache && \
+    pip3 install yfinance alpha_vantage quandl
 
 # re-enable dialog mode for apt-get
 ENV DEBIAN_FRONTEND=dialog
