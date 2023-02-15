@@ -30,7 +30,8 @@ The installed Python libraries are:
  - imutils
  - sqlalchemy
  - pyautogui
- - yfinance
+ - yfinance alpha_vantage quandl
+ - pandas-datareader requests_cache
 
 #### Prerequisites
 
