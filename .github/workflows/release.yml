@@ -36,7 +36,7 @@ jobs:
         run: |
           if [[ "$GITHUB_REF" =~ ^refs/tags/v* ]]; then
             echo "Releasing from tag: $GITHUB_REF_NAME"
-            echo "TAG=$GITHUB_REF_NAME"
+            echo "TAG=$GITHUB_REF_NAME" >> $GITHUB_ENV
           else
             echo "Releasing from branch: $GITHUB_REF_NAME"
             TIMESTAMP=$(TZ=UTC date +%Y%m%d)
