@@ -48,7 +48,7 @@ jobs:
             SHORT_HASH=$(echo ${{ github.sha }} | head -c7)
             echo "TAG=$TIMESTAMP-$SHORT_HASH" >> $GITHUB_ENV
           fi
-          echo "Container Version:" $TAG
+          echo "Container Version: $TAG"
 
       - name: 🙏 Build Image
         run: |
@@ -59,3 +59,17 @@ jobs:
           docker push  ghcr.io/${{ github.repository }}:$TAG
           docker tag   ghcr.io/${{ github.repository }}:$TAG ghcr.io/${{ github.repository }}:latest
           docker push  ghcr.io/${{ github.repository }}:latest
+
+      - name: Scan Image for Vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ghcr.io/${{ github.repository }}:latest'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true
+
+      - name: Upload scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
