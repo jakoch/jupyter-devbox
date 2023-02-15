@@ -22,17 +22,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: ✂️ Free Disk Space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+
+      - name: 🤘 Checkout Code
         uses: actions/checkout@v3
 
-      - name: Login to Container Registry
+      - name: 🔒 Login to Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Versionize
+      - name: 📝 Versionize
         run: |
           if [[ "$GITHUB_REF" =~ ^refs/tags/v* ]]; then
             echo "Releasing from tag: $GITHUB_REF_NAME"
@@ -45,11 +50,11 @@ jobs:
           fi
           echo "Container Version:" $TAG
 
-      - name: Build Image
+      - name: 🙏 Build Image
         run: |
           docker build --no-cache --progress=plain -t ghcr.io/${{ github.repository }}:$TAG .devcontainer/
 
-      - name: Push Image to registry
+      - name: 📦 🚀 Push Image to registry
         run: |
           docker push  ghcr.io/${{ github.repository }}:$TAG
           docker tag   ghcr.io/${{ github.repository }}:$TAG ghcr.io/${{ github.repository }}:latest
