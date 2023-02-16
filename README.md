@@ -1,4 +1,4 @@
-# jupyter-devbox
+# jupyter-devbox [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jakoch/jupyter-devbox/release.yml?branch=main&style=flat&logo=github&label=Image%20published%20on%20GHCR)](https://github.com/jakoch/jupyter-devbox)
 
 A Docker development box for Jupyter Notebook's with a focus on Computer Vision, Machine Learning, Statistics and Visualization.
 
@@ -85,3 +85,5 @@ You might also use this container image as a base image in your own Dockerfile:
 ```
 > FROM ghcr.io/jakoch/jupyter-devbox:latest
 ```
+
+
