@@ -13,3 +13,8 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+  # Enable automatic version updates for Dockerfile
+  - package-ecosystem: "docker"
+    directory: "./devcontainer"
+    schedule:
+      interval: "monthly"
