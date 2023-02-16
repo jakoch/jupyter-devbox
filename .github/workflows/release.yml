@@ -30,6 +30,11 @@ jobs:
       - name: 🤘 Checkout Code
         uses: actions/checkout@v3 # https://github.com/actions/checkout
 
+      - uses: hadolint/hadolint-action@v3.1.0 # https://github.com/hadolint/hadolint-action
+        with:
+          dockerfile: .devcontainer/Dockerfile
+          no-fail: true          
+
       - name: 🔒 Login to Container Registry
         uses: docker/login-action@v2 # https://github.com/docker/login-action
         with:
