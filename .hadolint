@@ -9,21 +9,21 @@ ignored: [
   #
   # Nope, we want to resolve dynamically step-by-step. 
   #
-  DL3008,
-  
-  # DL3013 warning: Pin versions in pip. Instead of `pip install <package>` use `pip install <package>==<version>` or `pip install --requirement <requirements file>`
-  # https://github.com/hadolint/hadolint/wiki/DL3042
-  #
-  # Nope, we want to resolve dynamically step-by-step. 
-  #  
-  DL3042,
-    
+  DL3008,  
+
   # DL3009 info: Delete the apt-get lists after installing something
   # https://github.com/hadolint/hadolint/wiki/DL3009
   #
   # I do that. Tool is to stupid to check it. ¯\_(ツ)_/¯
   #  
   DL3009,
+  
+  # DL3013 warning: Pin versions in pip. Instead of `pip install <package>` use `pip install <package>==<version>` or `pip install --requirement <requirements file>`
+  # https://github.com/hadolint/hadolint/wiki/DL3042
+  #
+  # Nope, we want to resolve dynamically step-by-step. 
+  #  
+  DL3013,    
   
   # DL3015 info: Avoid additional packages by specifying --no-install-recommends.
   # https://github.com/hadolint/hadolint/wiki/DL3015
