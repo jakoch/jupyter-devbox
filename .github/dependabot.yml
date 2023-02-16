@@ -13,8 +13,16 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    commit-message:
+      prefix: "deps(github-actions): "
+    labels:
+      - "dependencies"
   # Enable automatic version updates for Dockerfile
   - package-ecosystem: "docker"
     directory: "./devcontainer"
     schedule:
       interval: "monthly"
+    commit-message:
+      prefix: "deps(dockerfile): "
+    labels:
+      - "dependencies"
