@@ -9,6 +9,17 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - this is a placeholder
 
+### Added
+
+- added the vscode.extension: editorconfig.editorconfig
+- scan container image for vulnerabilites using trivy and upload sarif report
+- user is now added to sudoers.d to allow package installation
+
+### Changed
+
+- improved pip config (disabled progressbar, caching, pip-version-check)
+- renamed `run-jupyter.sh` to `start-notebook.sh`
+
 ## [1.1.0] - 2023-02-15
 
 ### Added
