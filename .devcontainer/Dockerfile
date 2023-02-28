@@ -24,6 +24,7 @@ ARG USER_GID=$USER_UID
 # +-----------------------------+
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBCONF_NONINTERACTIVE_SEEN=true
 
 # +-----------------------------+
 # | PRE-REQUISITES/INIT PACKAGES |
