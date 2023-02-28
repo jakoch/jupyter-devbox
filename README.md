@@ -78,12 +78,10 @@ You may find the package here: https://github.com/jakoch/jupyter-devbox/pkgs/con
 
 You can install the container image from the command line: 
 ```
-> docker pull ghcr.io/jakoch/jupyter-devbox:latest
+docker pull ghcr.io/jakoch/jupyter-devbox:latest
 ```
 
 You might also use this container image as a base image in your own Dockerfile: 
 ```
-> FROM ghcr.io/jakoch/jupyter-devbox:latest
+FROM ghcr.io/jakoch/jupyter-devbox:latest
 ```
-
-
