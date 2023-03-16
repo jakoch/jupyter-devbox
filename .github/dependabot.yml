@@ -17,6 +17,10 @@ updates:
       prefix: "deps(github-actions): "
     labels:
       - "dependencies"
+    # ignore all patch level updates
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
   # Enable automatic version updates for Dockerfile
   - package-ecosystem: "docker"
     directory: "./devcontainer"
@@ -26,3 +30,7 @@ updates:
       prefix: "deps(dockerfile): "
     labels:
       - "dependencies"
+    # ignore all patch level updates
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
