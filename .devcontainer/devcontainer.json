@@ -20,7 +20,9 @@
 				"did1335.opencv-intellisense",
 				"gsgupta.opencv-snippets",
 				// Markdown specific
-				"yzhang.markdown-all-in-one"
+				"yzhang.markdown-all-in-one",
+				// Spell Checker
+				"streetsidesoftware.code-spell-checker"
 			],
 			"settings": {
 				"terminal.integrated.defaultProfile.linux": "zsh"

@@ -14,6 +14,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - added the vscode.extension: editorconfig.editorconfig
 - scan container image for vulnerabilites using trivy and upload sarif report
 - user is now added to sudoers.d to allow package installation
+- added vscode.extensions: streetsidesoftware.code-spell-checker
 
 ### Changed
 
