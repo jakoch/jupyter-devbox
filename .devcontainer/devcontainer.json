@@ -8,7 +8,11 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
+				// Jupyter
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-renderers",
 				// VS Code specific
+				"ms-azuretools.vscode-docker",
 				"dbaeumer.vscode-eslint",
 				"EditorConfig.EditorConfig",
 				// Python specific
@@ -25,7 +29,7 @@
 				"streetsidesoftware.code-spell-checker"
 			],
 			"settings": {
-				"terminal.integrated.defaultProfile.linux": "zsh"
+				"terminal.integrated.defaultProfile.linux": "bash"
 			}
 		}
 	},
@@ -42,10 +46,10 @@
 		"6006:6006"
 	],
 	// After Starting the Container, start the jupyter notebook
-	"postStartCommand": "bash start-notebook.sh &",
+	//"postStartCommand": "bash start-notebook.sh &",
 	//
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode",
+	"remoteUser": "vscode"
 	//
 	//"mounts": [
 	//	"source=${localWorkspaceFolder},target=/home/ws-mount,type=bind,consistency=cached"

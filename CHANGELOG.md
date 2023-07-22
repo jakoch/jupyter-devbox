@@ -11,13 +11,29 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
-- added the vscode.extension: editorconfig.editorconfig
-- scan container image for vulnerabilites using trivy and upload sarif report
-- user is now added to sudoers.d to allow package installation
-- added vscode.extensions: streetsidesoftware.code-spell-checker
+- tba
 
 ### Changed
 
+- tba
+
+## [1.2.0] - 2023-07-22
+
+### Added
+
+- added the vscode.extension:
+  - ms-toolsai.jupyter
+  - ms-toolsai.jupyter-renderers
+  - editorconfig.editorconfig
+  - streetsidesoftware.code-spell-checker
+- scan container image for vulnerabilites using trivy and upload sarif report
+- user is now added to sudoers.d to allow package installation
+- added statsmodels to python packages
+
+### Changed
+
+- updated Debian to v12 (bookworm)
+- make use of virtual env for Python, because Debian 12 enforces pep668
 - improved pip config (disabled progressbar, caching, pip-version-check)
 - renamed `run-jupyter.sh` to `start-notebook.sh`
 

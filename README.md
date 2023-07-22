@@ -10,10 +10,10 @@ The pre-installed libraries include OpenCV, Tensorflow, Keras, Numpy, Pandas, Sk
 
 #### What is pre-installed?
 
-Base: Debian 11 - Bullseye
+Base: Debian 12 - Bookworm
 
 On top of the base image the following tools are installed:
-- zsh, git, cmake
+- zsh, git, cmake, nano
 - curl, wget
 - imagemagick, gnuplot, graphviz
 
@@ -30,7 +30,7 @@ The installed Python libraries are:
  - imutils
  - sqlalchemy
  - pyautogui
- - yfinance alpha_vantage quandl
+ - yfinance alpha_vantage quandl statsmodels
  - pandas-datareader requests_cache
 
 #### Prerequisites
@@ -44,7 +44,7 @@ You need the following things to run this:
 
 There are two ways of setting the container up.
 
-Either by building the container image locally or by fetching the prebuild container image from the Github container registry. 
+Either by building the container image locally or by fetching the prebuild container image from the Github container registry.
 
 ##### Building the Container Image locally using VSCode
 
@@ -72,16 +72,16 @@ Either by building the container image locally or by fetching the prebuild conta
 
 ##### Fetching the prebuild container image
 
-This container image is published to the Github Container Registry (GHCR). 
+This container image is published to the Github Container Registry (GHCR).
 
 You may find the package here: https://github.com/jakoch/jupyter-devbox/pkgs/container/jupyter-devbox.
 
-You can install the container image from the command line: 
+You can install the container image from the command line:
 ```
 docker pull ghcr.io/jakoch/jupyter-devbox:latest
 ```
 
-You might also use this container image as a base image in your own Dockerfile: 
+You might also use this container image as a base image in your own Dockerfile:
 ```
 FROM ghcr.io/jakoch/jupyter-devbox:latest
 ```

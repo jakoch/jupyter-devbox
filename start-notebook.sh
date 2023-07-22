@@ -1,16 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# copy jupyter notebook config to root user
-cp -rf conf/.jupyter /root
-
-# copy zsh config to root user
-cp -rf .devcontainer/.zshrc /root
+# copy jupyter notebook config to user home
+cp -rf conf/.jupyter ~/
 
 # adding "/root/.local/bin" for pylint (isort, epylint, pylint, etc.)
 export PATH="/root/.local/bin:$PATH"
 
 export DISPLAY=:0
-
-jupyter kernelspec list
 
 jupyter notebook "$@" &
