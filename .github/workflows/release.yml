@@ -26,14 +26,10 @@ jobs:
         uses: jlumbroso/free-disk-space@main # https://github.com/jlumbroso/free-disk-space
         with:
           tool-cache: true
+          docker-images: false
 
       - name: 🤘 Checkout Code
         uses: actions/checkout@v3 # https://github.com/actions/checkout
-
-      - uses: hadolint/hadolint-action@v3.1.0 # https://github.com/hadolint/hadolint-action
-        with:
-          dockerfile: .devcontainer/Dockerfile
-          no-fail: true          
 
       - name: 🔒 Login to Container Registry
         uses: docker/login-action@v2 # https://github.com/docker/login-action
@@ -41,6 +37,16 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      # https://hub.docker.com/_/debian
+      - name: Pull Debian Slim manually
+        run: |
+          docker pull debian:bookworm-slim
+          
+      - uses: hadolint/hadolint-action@v3.1.0 # https://github.com/hadolint/hadolint-action
+        with:
+          dockerfile: .devcontainer/Dockerfile
+          no-fail: true   
 
       - name: 📝 Versionize
         run: |
@@ -65,7 +71,7 @@ jobs:
           docker tag   ghcr.io/${{ github.repository }}:$TAG ghcr.io/${{ github.repository }}:latest
           docker push  ghcr.io/${{ github.repository }}:latest
 
-      - name: Scan Image for Vulnerabilities
+      - name: 🛡️🔍 Scan Image for Vulnerabilities
         uses: aquasecurity/trivy-action@master # https://github.com/aquasecurity/trivy-action
         with:
           image-ref: 'ghcr.io/${{ github.repository }}:latest'
@@ -74,7 +80,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true
 
-      - name: Upload scan results to GitHub Security tab
+      - name: 🛡️🔼 Upload scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2 # https://github.com/github/codeql-action
         with:
           sarif_file: 'trivy-results.sarif'

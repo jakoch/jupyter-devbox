@@ -77,7 +77,7 @@ RUN pip3 config --user set global.disable-pip-version-check true && \
     pip3 install --upgrade wheel && \
     pip3 install tensorflow && \
     pip3 install ipykernel docutils jupyter notebook pyyaml pylint h5py && \
-    pip3 install numpy pandas sklearn scipy && \
+    pip3 install numpy pandas scikit-learn scipy && \
     pip3 install matplotlib seaborn pydotplus && \
     pip3 install keras --no-deps && \
     pip3 install opencv-python && \
