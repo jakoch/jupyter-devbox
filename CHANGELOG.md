@@ -9,13 +9,25 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - this is a placeholder
 
-### Added
-
-- tba
-
 ### Changed
 
 - tba
+
+## [1.3.0] - 2024-02-05
+
+### Added
+
+- run installation of ipykernel
+- added jupyterhub to python packages
+
+### Changed
+
+- updated notebook config, replaced `c.NotebookApp` with `c.ServerApp`
+
+### Removed
+
+- removed the tensorboard port from "appPort" in devcontainer.json
+- removed apt package python3-opencv, because version too old (4.6.0)
 
 ## [1.2.0] - 2023-07-22
 
@@ -65,7 +77,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - dropped the deprecated Python 2
 
-[unreleased]: https://github.com/jakoch/jupyter-devbox/compare/v1.2.0...HEAD
+[unreleased]: https://github.com/jakoch/jupyter-devbox/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/jakoch/jupyter-devbox/releases/tag/v1.0.0

@@ -46,15 +46,16 @@ RUN apt-get update && \
         gcc g++ build-essential cmake build-essential \
         unzip libjpeg-dev libpng-dev libpq-dev \
         imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
-        # py3
+        # opencv
+        libopencv-dev \
+    # py3
         python3 \
         python3-dev \
         python3-pip \
         python3-venv \
         python3-wheel \
-        python3-setuptools \
-        python3-opencv \
-        libopencv-dev
+        python3-setuptools
+        #python3-opencv \ # 4.6.0
 
 # Cleanup
 RUN apt-get autoremove -fy && \
@@ -76,7 +77,7 @@ RUN pip3 config --user set global.disable-pip-version-check true && \
     pip3 install --upgrade setuptools && \
     pip3 install --upgrade wheel && \
     pip3 install tensorflow && \
-    pip3 install ipykernel docutils jupyter notebook pyyaml pylint h5py && \
+    pip3 install ipykernel docutils jupyter notebook jupyterhub pyyaml pylint h5py && \
     pip3 install numpy pandas scikit-learn scipy && \
     pip3 install matplotlib seaborn pydotplus && \
     pip3 install keras --no-deps && \
@@ -86,6 +87,8 @@ RUN pip3 config --user set global.disable-pip-version-check true && \
     pip3 install pyautogui && \
     pip3 install pandas-datareader requests_cache && \
     pip3 install yfinance alpha_vantage quandl statsmodels
+
+RUN /opt/venv/bin/python -m ipykernel install --user --name="Python_3"
 
 # re-enable dialog mode for apt-get
 ENV DEBIAN_FRONTEND=dialog
