@@ -11,7 +11,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Changed
 
-- tba
+- tba...
 
 ## [1.3.0] - 2024-02-05
 
