@@ -16,6 +16,7 @@
 				"EditorConfig.EditorConfig",
 				// Python specific
 				"ms-python.python",
+                                "ms-python.black-formatter",
 				// C++ specific
 				"ms-vscode.cpptools",
 				"twxs.cmake",
@@ -44,7 +45,9 @@
 		"8888:8888"
 	],
 	// After Starting the Container, start the jupyter notebook
-	"postStartCommand": "chmod u+x start-notebook.sh && bash start-notebook.sh &",
+        // then go to http://127.0.0.1:8888/
+        // Old command: chmod u+x start-notebook.sh && bash start-notebook.sh & 
+	"postStartCommand": "start-notebook.sh &",
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode"
 	//"mounts": [

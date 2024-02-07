@@ -8,4 +8,5 @@ export PATH="/root/.local/bin:$PATH"
 
 export DISPLAY=:0
 
+#nohup bash -c 'jupyter notebook "$@" &'
 jupyter notebook "$@" &

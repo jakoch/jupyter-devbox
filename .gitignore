@@ -1,0 +1,12 @@
+#
+# .gitignore
+#
+
+# ignore startup log, if invoking juypter notebook using nohup
+
+nohup.out
+
+# ignore notebook checkpoints
+
+*.ipynb_checkpoints
+.ipynb_checkpoints

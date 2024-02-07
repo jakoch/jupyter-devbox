@@ -9,9 +9,33 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - this is a placeholder
 
+### Added
+
+- added `.gitignore` and codeowners file
+- added python packages:
+  - watermark
+  - plotly
+  - graphviz
+  - nasdaq-data-link
+  - finnhub-python
+  - finacetoolkit
+  - finacnedatabase
+- added vscode extension:
+  - ms-python.black-formatter
+- added/improved notebook examples:
+  - added FRED/GDP visualization example to finance notebook
+  - added statsmodels example
+
 ### Changed
 
-- tba...
+- changed python packages:
+  - opencv-python to opencv-python-headless
+
+### Removed
+
+- removed python packages:
+  - pydotplus
+  - quandl (deprecated, replaced by nasdaq-data-link)
 
 ## [1.3.0] - 2024-02-05
 
@@ -33,14 +57,15 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
-- added the vscode.extension:
+- added vscode.extensions:
   - ms-toolsai.jupyter
   - ms-toolsai.jupyter-renderers
   - editorconfig.editorconfig
   - streetsidesoftware.code-spell-checker
 - scan container image for vulnerabilites using trivy and upload sarif report
 - user is now added to sudoers.d to allow package installation
-- added statsmodels to python packages
+- added python packages:
+  - statsmodels
 
 ### Changed
 
@@ -54,9 +79,13 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 ### Added
 
 - added Github Actions release workflow for publishing the container image to GHCR
-- added some more python packages for finance, including:
-  pandas-datareader, requests_cache, yfinance, alpha_vantage, quandl
-- added the vscode.extension: yzhang.markdown-all-in-one
+- added python packages:
+  - pandas-datareader
+  - requests_cache
+  - alpha_vantage
+  - quandl
+- added vscode.extensions:
+  - yzhang.markdown-all-in-one
 - added .editorconfig and dependabot.yml
 
 ### Changed
@@ -67,7 +96,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
-- added "yfinance" python package
+- added "yfinance" python packages:
+  - yfinance
 
 ### Changed
 

@@ -69,26 +69,28 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install Python Packages
-#ARG PIP_BREAK_SYSTEM_PACKAGES=1
-RUN pip3 config --user set global.disable-pip-version-check true && \
-    pip3 config --user set global.progress_bar off && \
-    pip3 config --user set global.no-cache-dir true && \
-    pip3 install --upgrade pip && \
-    pip3 install --upgrade setuptools && \
-    pip3 install --upgrade wheel && \
-    pip3 install tensorflow && \
-    pip3 install ipykernel docutils jupyter notebook jupyterhub pyyaml pylint h5py && \
-    pip3 install numpy pandas scikit-learn scipy && \
-    pip3 install matplotlib seaborn pydotplus && \
-    pip3 install keras --no-deps && \
-    pip3 install opencv-python && \
-    pip3 install imutils && \
-    pip3 install sqlalchemy && \
-    pip3 install pyautogui && \
-    pip3 install pandas-datareader requests_cache && \
-    pip3 install yfinance alpha_vantage quandl statsmodels
+RUN pip config --user set global.disable-pip-version-check true && \
+    pip config --user set global.progress_bar off && \
+    pip config --user set global.no-cache-dir true && \
+    pip install --upgrade pip && \
+    pip install --upgrade setuptools && \
+    pip install --upgrade wheel && \
+    pip install watermark && \
+    pip install tensorflow && \
+    pip install ipykernel docutils jupyter notebook jupyterhub pyyaml pylint h5py && \
+    pip install numpy pandas pandas-datareader scipy scikit-learn && \
+    pip install matplotlib seaborn plotly graphviz && \
+    pip install keras --no-deps && \
+    pip install opencv-python-headless && \
+    pip install imutils && \
+    pip install sqlalchemy && \
+    pip install pyautogui && \
+    pip install requests_cache && \
+    pip install yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase && \
+    pip install statsmodels
 
+# Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="Python_3"
 
-# re-enable dialog mode for apt-get
+# Re-enable dialog mode for apt-get
 ENV DEBIAN_FRONTEND=dialog
