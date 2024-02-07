@@ -25,6 +25,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 - added/improved notebook examples:
   - added FRED/GDP visualization example to finance notebook
   - added statsmodels example
+  - added check_devbox, which includes listing of installed packages
 
 ### Changed
 
