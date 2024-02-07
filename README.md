@@ -13,25 +13,29 @@ The pre-installed libraries include OpenCV, Tensorflow, Keras, Numpy, Pandas, Sk
 Base: Debian 12 - Bookworm
 
 On top of the base image the following tools are installed:
-- zsh, git, cmake, nano
-- curl, wget
-- imagemagick, gnuplot, graphviz
+  - zsh, git, cmake, nano
+  - curl, wget
+  - imagemagick, gnuplot, graphviz
 
 These programming languages are included:
- - Python 3 (including wheel, setuptools, pip)
- - C & C++ (g++)
+  - Python 3 (including wheel, setuptools, pip)
+  - C & C++ (g++)
 
 The installed Python libraries are:
- - jupyter ipykernel docutils pyyaml pylint h5py
- - tensorflow keras
- - numpy pandas sklearn scipy
- - matplotlib seaborn
- - opencv-python
- - imutils
- - sqlalchemy
- - pyautogui
- - yfinance alpha_vantage quandl statsmodels
- - pandas-datareader requests_cache
+  - jupyter ipykernel docutils pyyaml pylint
+  - h5py
+  - tensorflow keras
+  - pandas pandas-datareader
+  - numpy scipy sklearn
+  - matplotlib seaborn plotly graphviz
+  - opencv-python-headless
+  - imutils
+  - sqlalchemy
+  - pyautogui
+  - yfinance alpha_vantage nasdaq-data-link
+  - financetoolkit financedatabase
+  - statsmodels
+  - requests_cache
 
 #### Prerequisites
 
