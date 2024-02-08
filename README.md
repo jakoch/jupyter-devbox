@@ -5,7 +5,7 @@ A Docker development box for Jupyter Notebook's with a focus on Computer Vision,
 #### What is this?
 
 This is a Docker container based on Debian Linux (see [Dockerfile](https://github.com/jakoch/jupyter-devbox/blob/main/.devcontainer/Dockerfile)).
-It sets up a Python/Jupyter Notebook development environment for Visual Studio Code.
+It sets up an Jupyter Notebook development environment for interactive Python programming for Visual Studio Code.
 The pre-installed libraries include OpenCV, Tensorflow, Keras, Numpy, Pandas, Sklearn, Scipy, Matplotlib, Seaborn, Imutils, SqlAlchemy.
 
 #### What is pre-installed?
@@ -18,7 +18,7 @@ On top of the base image the following tools are installed:
   - imagemagick, gnuplot, graphviz
 
 These programming languages are included:
-  - Python 3 (including wheel, setuptools, pip)
+  - Python 3 (including  pip, setuptools, wheel, venv)
   - C & C++ (g++)
 
 The installed Python libraries are:

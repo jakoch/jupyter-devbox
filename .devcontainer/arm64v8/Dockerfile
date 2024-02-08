@@ -2,7 +2,9 @@
 # | BASE IMAGE             ~32MB|        See https://hub.docker.com/_/debian
 # +-----------------------------+
 
-FROM debian:bookworm-slim
+# Platform/Architecture = linux/arm64v8 = linux/arm64/v8 = arm64 = aarch64
+
+FROM arm64v8/debian:bookworm-slim
 
 # +-----------------------------+
 # | METADATA                    |
@@ -42,12 +44,26 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
-        git zsh curl wget nano openssh-client \
-        gcc g++ build-essential cmake build-essential \
+        git zsh curl wget nano openssh-client ca-certificates \
+        gcc g++ build-essential cmake ninja-build build-essential
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/rustup.sh \
+  && sh /tmp/rustup.sh -y --default-toolchain stable
+ENV HOME /root
+ENV PATH $HOME/.cargo/bin:$PATH
+#RUN rustup --version && cargo --version && rustc --version
+#RUN rustup update
+
+RUN apt-get -y install --no-install-recommends \
         unzip libjpeg-dev libpng-dev libpq-dev \
         imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
-        # opencv
+        re2c libffi-dev libffi8 gfortran libxsimd-dev libhdf5-serial-dev \
+        libxml2-dev libxslt-dev \
+    # OPENCV
         libopencv-dev \
+    # BLAS and LAPACK, OPENBLAS and BLIS
+        libblas-dev liblapack-dev libopenblas-dev libblis-dev \
     # py3
         python3 \
         python3-dev \
@@ -55,7 +71,6 @@ RUN apt-get update && \
         python3-venv \
         python3-wheel \
         python3-setuptools
-        #python3-opencv \ # 4.6.0
 
 # Cleanup
 RUN apt-get autoremove -fy && \
@@ -65,29 +80,49 @@ RUN apt-get autoremove -fy && \
 
 # Use a virtual environment for Python (to avoid PEP668 "externally managed environment" error).
 ENV VIRTUAL_ENV=/opt/venv
+# Let pip fetch prebuild wheels from piwheels.org
+#RUN echo "[global]\nextra-index-url=https://www.piwheels.org/simple" > /etc/pip.conf
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Install Python Packages
-RUN pip config --user set global.disable-pip-version-check true && \
-    pip config --user set global.progress_bar off && \
-    pip config --user set global.no-cache-dir true && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools && \
-    pip install --upgrade wheel && \
-    pip install watermark && \
-    pip install tensorflow && \
-    pip install ipykernel docutils jupyter notebook jupyterhub pyyaml pylint h5py && \
-    pip install numpy pandas pandas-datareader scipy scikit-learn && \
-    pip install matplotlib seaborn plotly graphviz && \
-    pip install keras --no-deps && \
-    pip install opencv-python-headless && \
-    pip install imutils && \
-    pip install sqlalchemy && \
-    pip install pyautogui && \
-    pip install requests_cache && \
-    pip install yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase && \
-    pip install statsmodels
+RUN pip3 config --user set global.disable-pip-version-check true && \
+    pip3 config --user set global.progress_bar off && \
+    pip3 config --user set global.no-cache-dir true && \
+    pip3 install --upgrade pip && \
+    pip3 install --upgrade setuptools && \
+    pip3 install --upgrade wheel
+
+# prefer-binary = prefer to download the precompiled wheel, even if source is newer
+RUN pip3 install --prefer-binary --no-cache-dir \
+    ipykernel docutils jupyter notebook jupyterhub
+
+RUN pip3 install --prefer-binary --no-cache-dir \
+    watermark \
+    pyyaml \
+    pylint \
+    h5py
+
+RUN pip3 install --prefer-binary --no-cache-dir \
+    tensorflow \
+    matplotlib seaborn plotly graphviz
+
+RUN pip3 install --prefer-binary --no-cache-dir \
+    keras --no-deps \
+    opencv-python-headless \
+    imutils
+
+RUN pip3 install --prefer-binary --no-cache-dir \
+    numpy pandas pandas-datareader bottleneck \
+    scipy scikit-learn \
+    duckdb
+
+RUN pip3 install --prefer-binary --no-cache-dir \
+    sqlalchemy \
+    pyautogui \
+    requests_cache \
+    yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
+    statsmodels
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="Python_3"

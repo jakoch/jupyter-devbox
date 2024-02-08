@@ -11,6 +11,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Added
 
+- added Dockerfile for arm64v8 architecture into folder ".devcontainer/arm64v8"
 - added `.gitignore` and codeowners file
 - added python packages:
   - watermark
@@ -19,7 +20,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
   - nasdaq-data-link
   - finnhub-python
   - finacetoolkit
-  - finacnedatabase
+  - financedatabase
+  - duckdb
 - added vscode extension:
   - ms-python.black-formatter
 - added/improved notebook examples:
@@ -29,6 +31,9 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 ### Changed
 
+- moved Dockerfile for amd64 into folder ".devcontainer/amd64"
+- changed github workflow into build matrix for amd64 and arm64
+  - with an extra step, which uploads the merged manifest file
 - changed python packages:
   - opencv-python to opencv-python-headless
 
