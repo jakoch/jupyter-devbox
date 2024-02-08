@@ -55,6 +55,9 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=sha
+          flavor: |
+            latest=auto
+            prefix=ghcr.io/,onlatest=false
 
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
