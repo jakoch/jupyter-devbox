@@ -24,9 +24,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
+        config:
+          - { platform: "linux/amd64", folder: "amd64"   }
+          - { platform: "linux/arm64", folder: "arm64v8" }
 
     steps:
 
@@ -38,7 +38,7 @@ jobs:
 
       - name: Prepare
         run: |
-          platform=${{ matrix.platform }}
+          platform=${{ matrix.config.platform }}
           echo "PLATFORM_ARCH=${platform//\//-}" >> $GITHUB_ENV
 
       - name: Checkout
@@ -81,9 +81,9 @@ jobs:
         id: build
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: .devcontainer/${{ matrix.config.folder }}/
           push: ${{ github.event_name != 'pull_request' }}
-          platforms: ${{ matrix.platform }}
+          platforms: ${{ matrix.config.platform }}
           labels: ${{ steps.metadata.outputs.labels }}
           outputs: type=image,name=${{ github.repository }},push-by-digest=true,name-canonical=true,push=true
 
@@ -104,7 +104,7 @@ jobs:
       - name: 🔍 Run hadolint
         uses: hadolint/hadolint-action@v3.1.0 # https://github.com/hadolint/hadolint-action
         with:
-          dockerfile: .devcontainer/Dockerfile-${{ matrix.platform }}
+          dockerfile: .devcontainer/${{ matrix.config.folder }}/Dockerfile
           no-fail: true
 
 # ---------------------------------------------------------------------------------------
