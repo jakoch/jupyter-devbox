@@ -125,13 +125,8 @@ jobs:
           pattern: digest-*
           merge-multiple: true
 
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3 # https://github.com/docker/setup-buildx-action
-
-      - name: Setup Docker Metadata
-        uses: docker/metadata-action@v5 # https://github.com/docker/metadata-action
-        with:
-          images: ${{ github.repository }}
+      - name: Display downloaded artifacts
+        run: ls -R /tmp/digests
 
       - name: 🔒 Login to Github Container Registry (GHCR)
         if: github.event_name != 'pull_request'
@@ -141,11 +136,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3 # https://github.com/docker/setup-buildx-action
+
+      - name: Setup Docker Metadata
+        uses: docker/metadata-action@v5 # https://github.com/docker/metadata-action
+        with:
+          images: ${{ github.repository }}
+
       - name: Create and Push Manifest
         working-directory: /tmp/digests
         run: |
-          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf 'ghcr.io/${{ github.repository }}@sha256:%s ' *)
+          tags=$(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON")
+          sources=$(printf 'ghcr.io/${{ github.repository }}@sha256:%s ' *)
+          echo "$sources"
+          docker buildx imagetools create $tags $sources
 
       - name: 🔍 Inspect Manifest
         run: |
