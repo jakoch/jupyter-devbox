@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      contents: read
       packages: write
 
     strategy:
@@ -38,11 +39,6 @@ jobs:
         with:
           tool-cache: true
           docker-images: false
-
-      - name: Prepare
-        run: |
-          platform=${{ matrix.config.platform }}
-          echo "PLATFORM_ARCH=${platform//\//-}" >> $GITHUB_ENV
 
       - name: Checkout
         uses: actions/checkout@v4 # https://github.com/actions/checkout
@@ -67,17 +63,13 @@ jobs:
         id: metadata
         uses: docker/metadata-action@v5 # https://github.com/docker/metadata-action/
         with:
-          images: ${{ github.repository }}
+          images: ghcr.io/${{ github.repository }}
           tags: |
             type=ref,event=branch
             type=ref,event=tag
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=sha
-          flavor: |
-            latest=auto
-            prefix=ghcr.io/,onlatest=false
-
 
       - name: Build and Push by Digest
         id: build
@@ -99,7 +91,7 @@ jobs:
       - name: Upload Digest
         uses: actions/upload-artifact@v4 # https://github.com/actions/upload-artifact
         with:
-          name: digests-${{ env.PLATFORM_ARCH }}
+          name: digests-${{ matrix.config.folder }}
           path: /tmp/digests/*
           if-no-files-found: error
           retention-days: 1
@@ -118,6 +110,10 @@ jobs:
 
     name: "Merge Metadata and Push Manifest"
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
 
     needs:
       - build
