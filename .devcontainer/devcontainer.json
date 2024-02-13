@@ -1,57 +1,57 @@
 // For format details, see https://aka.ms/vscode-remote/devcontainer.json
 {
-	"name": "jupyter-devbox",
+    "name": "jupyter-devbox",
     // The repository contains two images:
     // "amd64/Dockerfile (default)
     // "arm64v8/Dockerfile"
-	"dockerFile": "arm64v8/Dockerfile",
-	// config settings you would have in ".vscode/settings.json"
-	"customizations": {
-		"vscode": {
-			// Add the IDs of extensions you want installed when the container is created.
-			"extensions": [
-				// Jupyter
-				"ms-toolsai.jupyter",
-				"ms-toolsai.jupyter-renderers",
-				// VS Code specific
-				"ms-azuretools.vscode-docker",
-				"dbaeumer.vscode-eslint",
-				"EditorConfig.EditorConfig",
-				// Python specific
-				"ms-python.python",
+    "dockerFile": "amd64/Dockerfile",
+    // config settings you would have in ".vscode/settings.json"
+    "customizations": {
+        "vscode": {
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                // Jupyter
+                "ms-toolsai.jupyter",
+                "ms-toolsai.jupyter-renderers",
+                // VS Code specific
+                "ms-azuretools.vscode-docker",
+                "dbaeumer.vscode-eslint",
+                "EditorConfig.EditorConfig",
+                // Python specific
+                "ms-python.python",
                 "ms-python.black-formatter",
-				// C++ specific
-				"ms-vscode.cpptools",
-				"twxs.cmake",
-				// OpenCV specific
-				"did1335.opencv-intellisense",
-				"gsgupta.opencv-snippets",
-				// Markdown specific
-				"yzhang.markdown-all-in-one",
-				// Spell Checker
-				"streetsidesoftware.code-spell-checker"
-			],
-			"settings": {
-				"terminal.integrated.defaultProfile.linux": "bash"
-			}
-		}
-	},
-	// -- External Ports --
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	//"forwardPorts": [],
-	//
-	// -- Internal Ports --
-	// Use the next line if you want to publish any ports.
-	// Jupyter Notebook listening on port 8888... "8888:8888"
-	// TensorBoard listening on port 6006...      "6006:6006"
-	"appPort": [
-		"8888:8888"
-	],
-	// After Starting the Container, start the jupyter notebook
-	"postStartCommand": "chmod u+x start-notebook.sh && bash start-notebook.sh &",
-	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "root"
-	//"mounts": [
-	//	"source=${localWorkspaceFolder},target=/home/ws-mount,type=bind,consistency=cached"
-	//]
+                // C++ specific
+                "ms-vscode.cpptools",
+                "twxs.cmake",
+                // OpenCV specific
+                "did1335.opencv-intellisense",
+                "gsgupta.opencv-snippets",
+                // Markdown specific
+                "yzhang.markdown-all-in-one",
+                // Spell Checker
+                "streetsidesoftware.code-spell-checker"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            }
+        }
+    },
+    // -- External Ports --
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    //"forwardPorts": [],
+    //
+    // -- Internal Ports --
+    // Use the next line if you want to publish any ports.
+    // Jupyter Notebook listening on port 8888... "8888:8888"
+    // TensorBoard listening on port 6006...      "6006:6006"
+    "appPort": [
+        "8888:8888"
+    ],
+    // After Starting the Container, start the jupyter notebook
+    "postStartCommand": "chmod u+x start-notebook.sh && bash start-notebook.sh &",
+    // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+    "remoteUser": "root"
+    //"mounts": [
+    //	"source=${localWorkspaceFolder},target=/home/ws-mount,type=bind,consistency=cached"
+    //]
 }
