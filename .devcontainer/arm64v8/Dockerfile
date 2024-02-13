@@ -105,8 +105,9 @@ RUN pip config --user set global.disable-pip-version-check true && \
 
 # Install Python Packages
 # prefer-binary = prefer to download the precompiled wheel, even if source is newer
-RUN pip install --prefer-binary \
-    ipykernel docutils jupyter notebook jupyterhub \
+# Note: leave the 2 pip install runs, else pip has a problem resolving the dependencies
+RUN pip install ipykernel docutils jupyter notebook jupyterhub && \
+    pip install --prefer-binary \
     watermark pyyaml pylint h5py \
     tensorflow \
     matplotlib seaborn plotly graphviz \

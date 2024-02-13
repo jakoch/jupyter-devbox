@@ -91,8 +91,9 @@ RUN pip config --user set global.disable-pip-version-check true && \
     pip install --upgrade wheel
 
 # Install Python Packages
-RUN pip install \
-    ipykernel docutils jupyter notebook jupyterhub \
+# Note: leave the 2 pip install runs, else pip has a problem resolving the dependencies
+RUN pip install ipykernel docutils jupyter notebook jupyterhub && \
+    pip install \
     watermark pyyaml pylint h5py \
     tensorflow \
     matplotlib seaborn plotly graphviz \
