@@ -10,9 +10,10 @@ FROM arm64v8/debian:bookworm-slim
 # | METADATA                    |
 # +-----------------------------+
 
-LABEL org.opencontainers.image.vendor = "Jens A. Koch"
-LABEL org.opencontainers.image.source = "https://github.com/jakoch/jupyter-devbox"
-
+LABEL org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.vendor="Jens A. Koch" \
+      org.opencontainers.image.authors="Jens A. Koch <jakoch@web.de>" \
+      org.opencontainers.image.source="https://github.com/jakoch/jupyter-devbox"
 # +-----------------------------+
 # | ARGS                        |
 # +-----------------------------+

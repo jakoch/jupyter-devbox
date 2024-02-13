@@ -10,3 +10,7 @@ nohup.out
 
 *.ipynb_checkpoints
 .ipynb_checkpoints
+
+# ignore project local Visual Studio Code configs
+
+.vscode/*
