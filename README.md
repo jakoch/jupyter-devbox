@@ -2,10 +2,14 @@
 
 A Docker development box for [Jupyter Notebooks][jupyter_website] with a focus on Computer Vision, Machine Learning, Statistics and Visualization.
 
+The following sections describe the container images, including their packages, how to get build or download them, and how to set them up.
+
 #### What is this?
 
 This is a Docker container supporting multiple architectures ([amd64][amd64_dockerfile] & [arm64][arm64_dockerfile]) based on Debian Linux.
+
 It sets up an Jupyter Notebook development environment for interactive Python programming for [Visual Studio Code](vscode_website).
+
 The pre-installed libraries include OpenCV, Tensorflow, Keras, Numpy, Pandas, DuckDB, Sklearn, Scipy, Matplotlib, Seaborn, Imutils, SqlAlchemy.
 
 #### What is pre-installed?
@@ -38,7 +42,7 @@ The installed Python libraries are:
   - statsmodels
   - requests_cache
 
-You can find the list of all installed packages in the [notebooks/check_devbox.ipynb][check_devbox_ipynb_main] Notebook.
+You can find a list of all installed packages in the [notebooks/check_devbox.ipynb][check_devbox_ipynb_main] Notebook.
 
 #### Prerequisites
 
@@ -57,7 +61,14 @@ Either by building the container image locally or by fetching the prebuild conta
 
 - **Step 1.** Get the source: clone this repository using git or download the zip
 
-- **Step 2.** In VSCode open the folder in a container (`Remote Containers: Open Folder in Container`):
+- **Step 2. (optional)** The repository contains multiple images. You select an image by modifying the `dockerFile` to use in `./devcontainer/devcontainer.json`:
+
+  - By default `"dockerFile": "amd64/Dockerfile"` is set.
+  - For an image with architecture:
+    - amd64 set `amd64/Dockerfile`
+    - arm64, aarch64, arm64v8 set `arm64v8/Dockerfile`
+
+- **Step 3.** In VSCode open the folder in a container (`Remote Containers: Open Folder in Container`):
 
   This will build the container image (`Starting Dev Container (show log): Building image..`)
 
@@ -65,18 +76,17 @@ Either by building the container image locally or by fetching the prebuild conta
 
   Then, finally...
 
-- **Step 3.** Open the file `notebooks\test.ipynb`
-- **Step 4.** You might get a warning message for "untrusted" Notebook content.
+- **Step 4.** Open the file `notebooks\test.ipynb`
+
+- **Step 5.** You might get a warning message for "untrusted" Notebook content.
 
   Click `Trust` to allow executing the content of the Notebook.
 
-- **Step 6.** You are now able to edit cells and run their content interactively.
+- **Step 6.** You are now able to edit cells and run their content interactively in VSCode.
 
   You might also run your scripts inside your browser at http://localhost:8888/
 
-  And you can also read and run your scripts via the Github website: [notebooks/test.ipynb][test_ipynb_main].
-
--   **Step 6.** Enjoy! :sunglasses:
+- Enjoy! :sunglasses:
 
 ##### Fetching the prebuild container image
 
