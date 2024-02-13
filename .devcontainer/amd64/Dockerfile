@@ -1,3 +1,7 @@
+# Copyright Jens A. Koch 2021.
+# SPDX-License-Identifier: MIT
+# This file is part of https://github.com/jakoch/jupyter-devbox
+
 # +-----------------------------+
 # | BASE IMAGE             ~32MB|        See https://hub.docker.com/_/debian
 # +-----------------------------+
@@ -48,9 +52,10 @@ RUN apt-get update && \
     apt-get -y install --no-install-recommends \
         git zsh curl wget nano openssh-client ca-certificates tzdata locales \
         gcc g++ build-essential cmake ninja-build \
-        unzip libjpeg-dev libpng-dev libpq-dev \
+        zip unzip bzip2 \
+        libjpeg-dev libpng-dev libpq-dev \
         imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
-        # opencv
+    # opencv
         libopencv-dev \
     # py3
         python3 \
@@ -60,6 +65,11 @@ RUN apt-get update && \
         python3-wheel \
         python3-setuptools
         #python3-opencv \ # 4.6.0
+
+# Set locale and timezone
+RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8 \
+    TZ=Etc/UTC
 
 # Cleanup
 RUN apt-get autoremove -fy && \
@@ -72,27 +82,31 @@ ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-# Install Python Packages
+# Install Python Packages (base)
 RUN pip config --user set global.disable-pip-version-check true && \
     pip config --user set global.progress_bar off && \
     pip config --user set global.no-cache-dir true && \
     pip install --upgrade pip && \
     pip install --upgrade setuptools && \
-    pip install --upgrade wheel && \
-    pip install ipykernel docutils jupyter notebook jupyterhub && \
-    pip install watermark pyyaml pylint h5py && \
-    pip install tensorflow && \
-    pip install matplotlib seaborn plotly graphviz && \
-    pip install numpy pandas pandas-datareader scipy scikit-learn && \
-    pip install duckdb && \
-    pip install keras --no-deps && \
-    pip install opencv-python-headless && \
-    pip install imutils && \
-    pip install sqlalchemy && \
-    pip install pyautogui && \
-    pip install requests_cache && \
-    pip install yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase && \
-    pip install statsmodels
+    pip install --upgrade wheel
+
+# Install Python Packages
+RUN pip install \
+    ipykernel docutils jupyter notebook jupyterhub \
+    watermark pyyaml pylint h5py \
+    tensorflow \
+    matplotlib seaborn plotly graphviz \
+    keras --no-deps \
+    opencv-python-headless \
+    imutils \
+    numpy pandas pandas-datareader bottleneck \
+    scipy scikit-learn \
+    duckdb \
+    sqlalchemy \
+    pyautogui \
+    requests_cache \
+    yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
+    statsmodels
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="Python_3"

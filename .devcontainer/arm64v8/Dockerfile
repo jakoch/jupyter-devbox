@@ -1,3 +1,8 @@
+# Copyright Jens A. Koch 2021.
+# SPDX-License-Identifier: MIT
+# This file is part of https://github.com/jakoch/jupyter-devbox
+
+
 # +-----------------------------+
 # | BASE IMAGE             ~32MB|        See https://hub.docker.com/_/debian
 # +-----------------------------+
@@ -26,8 +31,8 @@ ARG USER_GID=$USER_UID
 # | ENV                         |
 # +-----------------------------+
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV DEBCONF_NONINTERACTIVE_SEEN=true
+ENV DEBIAN_FRONTEND=noninteractive \
+    DEBCONF_NONINTERACTIVE_SEEN=true
 
 # +-----------------------------+
 # | PRE-REQUISITES/INIT PACKAGES |
@@ -46,7 +51,13 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
         git zsh curl wget nano openssh-client ca-certificates tzdata locales \
-        gcc g++ build-essential cmake ninja-build
+        gcc g++ build-essential cmake ninja-build \
+        zip unzip bzip2
+
+# Set locale and timezone
+RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8 \
+    TZ=Etc/UTC
 
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/rustup.sh \
@@ -57,7 +68,7 @@ ENV PATH $HOME/.cargo/bin:$PATH
 #RUN rustup update
 
 RUN apt-get -y install --no-install-recommends \
-        unzip libjpeg-dev libpng-dev libpq-dev \
+        libjpeg-dev libpng-dev libpq-dev \
         imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
         re2c libffi-dev libffi8 gfortran libxsimd-dev libhdf5-serial-dev \
         libxml2-dev libxslt-dev \
@@ -81,44 +92,30 @@ RUN apt-get autoremove -fy && \
 
 # Use a virtual environment for Python (to avoid PEP668 "externally managed environment" error).
 ENV VIRTUAL_ENV=/opt/venv
-# Let pip fetch prebuild wheels from piwheels.org
-#RUN echo "[global]\nextra-index-url=https://www.piwheels.org/simple" > /etc/pip.conf
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
+# Install Python Packages (base)
+RUN pip config --user set global.disable-pip-version-check true && \
+    pip config --user set global.progress_bar off && \
+    pip config --user set global.no-cache-dir true && \
+    pip install --upgrade pip && \
+    pip install --upgrade setuptools && \
+    pip install --upgrade wheel
+
 # Install Python Packages
-RUN pip3 config --user set global.disable-pip-version-check true && \
-    pip3 config --user set global.progress_bar off && \
-    pip3 config --user set global.no-cache-dir true && \
-    pip3 install --upgrade pip && \
-    pip3 install --upgrade setuptools && \
-    pip3 install --upgrade wheel
-
 # prefer-binary = prefer to download the precompiled wheel, even if source is newer
-RUN pip3 install --prefer-binary --no-cache-dir \
-    ipykernel docutils jupyter notebook jupyterhub
-
-RUN pip3 install --prefer-binary --no-cache-dir \
-    watermark \
-    pyyaml \
-    pylint \
-    h5py
-
-RUN pip3 install --prefer-binary --no-cache-dir \
+RUN pip install --prefer-binary \
+    ipykernel docutils jupyter notebook jupyterhub \
+    watermark pyyaml pylint h5py \
     tensorflow \
-    matplotlib seaborn plotly graphviz
-
-RUN pip3 install --prefer-binary --no-cache-dir \
+    matplotlib seaborn plotly graphviz \
     keras --no-deps \
     opencv-python-headless \
-    imutils
-
-RUN pip3 install --prefer-binary --no-cache-dir \
+    imutils \
     numpy pandas pandas-datareader bottleneck \
     scipy scikit-learn \
-    duckdb
-
-RUN pip3 install --prefer-binary --no-cache-dir \
+    duckdb \
     sqlalchemy \
     pyautogui \
     requests_cache \
