@@ -28,6 +28,10 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
   - added FRED/GDP visualization example to finance notebook
   - added statsmodels example
   - added check_devbox, which includes listing of installed packages
+- added debian packages:
+  - ca-certificates
+  - tzdata
+  - locales
 
 ### Changed
 

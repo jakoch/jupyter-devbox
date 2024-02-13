@@ -44,8 +44,8 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
-        git zsh curl wget nano openssh-client ca-certificates \
-        gcc g++ build-essential cmake ninja-build build-essential
+        git zsh curl wget nano openssh-client ca-certificates tzdata locales \
+        gcc g++ build-essential cmake ninja-build
 
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/rustup.sh \

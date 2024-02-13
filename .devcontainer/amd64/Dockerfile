@@ -44,8 +44,8 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
-        git zsh curl wget nano openssh-client \
-        gcc g++ build-essential cmake build-essential \
+        git zsh curl wget nano openssh-client ca-certificates tzdata locales \
+        gcc g++ build-essential cmake ninja-build \
         unzip libjpeg-dev libpng-dev libpq-dev \
         imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
         # opencv
