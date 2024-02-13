@@ -1,12 +1,12 @@
 # jupyter-devbox [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jakoch/jupyter-devbox/release.yml?branch=main&style=flat&logo=github&label=Image%20published%20on%20GHCR)](https://github.com/jakoch/jupyter-devbox)
 
-A Docker development box for Jupyter Notebook's with a focus on Computer Vision, Machine Learning, Statistics and Visualization.
+A Docker development box for [Jupyter Notebooks][jupyter_website] with a focus on Computer Vision, Machine Learning, Statistics and Visualization.
 
 #### What is this?
 
-This is a Docker container based on Debian Linux (see [Dockerfile](https://github.com/jakoch/jupyter-devbox/blob/main/.devcontainer/Dockerfile)).
-It sets up an Jupyter Notebook development environment for interactive Python programming for Visual Studio Code.
-The pre-installed libraries include OpenCV, Tensorflow, Keras, Numpy, Pandas, Sklearn, Scipy, Matplotlib, Seaborn, Imutils, SqlAlchemy.
+This is a Docker container supporting multiple architectures ([amd64][amd64_dockerfile] & [arm64][arm64_dockerfile]) based on Debian Linux.
+It sets up an Jupyter Notebook development environment for interactive Python programming for [Visual Studio Code](vscode_website).
+The pre-installed libraries include OpenCV, Tensorflow, Keras, Numpy, Pandas, DuckDB, Sklearn, Scipy, Matplotlib, Seaborn, Imutils, SqlAlchemy.
 
 #### What is pre-installed?
 
@@ -26,6 +26,7 @@ The installed Python libraries are:
   - h5py
   - tensorflow keras
   - pandas pandas-datareader
+  - duckdb
   - numpy scipy sklearn
   - matplotlib seaborn plotly graphviz
   - opencv-python-headless
@@ -36,6 +37,8 @@ The installed Python libraries are:
   - financetoolkit financedatabase
   - statsmodels
   - requests_cache
+
+You can find the list of all installed packages in the [notebooks/check_devbox.ipynb][check_devbox_ipynb_main] Notebook.
 
 #### Prerequisites
 
@@ -52,27 +55,28 @@ Either by building the container image locally or by fetching the prebuild conta
 
 ##### Building the Container Image locally using VSCode
 
-1. Get the source: clone this repository using git or download the zip
-2. In VSCode open the folder in a container (`Remote Containers: Open Folder in Container`):
+- **Step 1.** Get the source: clone this repository using git or download the zip
 
-   This will build the container image (`Starting Dev Container (show log): Building image..`)
+- **Step 2.** In VSCode open the folder in a container (`Remote Containers: Open Folder in Container`):
 
-   Which takes a while...
+  This will build the container image (`Starting Dev Container (show log): Building image..`)
 
-   Then, finally...
+  Which takes a while...
 
-4. Open the file `notebooks\test.ipynb`
-5. You might get a warning message for "untrusted" Notebook content.
+  Then, finally...
 
-   Click `Trust` to allow executing the content of the Notebook.
+- **Step 3.** Open the file `notebooks\test.ipynb`
+- **Step 4.** You might get a warning message for "untrusted" Notebook content.
 
-6. You are now able to edit cells and run their content interactively.
+  Click `Trust` to allow executing the content of the Notebook.
 
-   You might also run your scripts inside your browser at http://localhost:8888/
+- **Step 6.** You are now able to edit cells and run their content interactively.
 
-   And you can also read and run your scripts via the Github website: [notebooks/test.ipynb](https://github.com/jakoch/jupyter-devbox/blob/main/notebooks/test.ipynb).
+  You might also run your scripts inside your browser at http://localhost:8888/
 
-7. Enjoy! :sunglasses:
+  And you can also read and run your scripts via the Github website: [notebooks/test.ipynb][test_ipynb_main].
+
+-   **Step 6.** Enjoy! :sunglasses:
 
 ##### Fetching the prebuild container image
 
@@ -89,3 +93,10 @@ You might also use this container image as a base image in your own Dockerfile:
 ```
 FROM ghcr.io/jakoch/jupyter-devbox:latest
 ```
+
+[jupyter_website]:https://jupyter.org/
+[vscode_website]:https://code.visualstudio.com/
+[test_ipynb_main]:https://github.com/jakoch/jupyter-devbox/blob/main/notebooks/test.ipynb
+[check_devbox_ipynb_main]:https://github.com/jakoch/jupyter-devbox/blob/main/notebooks/check_devbox.ipynb
+[amd64_dockerfile]:https://github.com/jakoch/jupyter-devbox/blob/main/.devcontainer/amd64/Dockerfile
+[arm64_dockerfile]:https://github.com/jakoch/jupyter-devbox/blob/main/.devcontainer/arm64/Dockerfile
