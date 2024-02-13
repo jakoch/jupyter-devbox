@@ -1,9 +1,16 @@
+#
+# Copyright 2021 Jens A. Koch.
+# SPDX-License-Identifier: MIT
+# This file is part of jakoch/jupyter-devbox.
+#
+
 name: Release
 
 on:
   # You can manually run this workflow.
   workflow_dispatch:
   # This workflow runs on pushing a semantic versionized tag (e.g. v1.0.0).
+  # This workflow does not run when pushing to the main branch.
   push:
     #branches:
     #  - main
@@ -43,15 +50,15 @@ jobs:
           tool-cache: true
           docker-images: false
 
-      - name: Checkout
+      - name: 🤘 Checkout
         uses: actions/checkout@v4 # https://github.com/actions/checkout
 
-      - name: Setup QEMU
+      - name: 🔽 Setup QEMU
         uses: docker/setup-qemu-action@v3 # https://github.com/docker/setup-qemu-action
         with:
           platforms: ${{ matrix.config.platform }}
 
-      - name: Setup Docker Buildx
+      - name: 🔽 Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: 🔒 Login to Github Container Registry (GHCR)
@@ -62,18 +69,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Docker Metadata
+      - name: ✏  Setup Docker Metadata
         id: metadata
         uses: docker/metadata-action@v5 # https://github.com/docker/metadata-action/
         with:
           images: |
             ${{ env.GHCR_IMAGE }}
 
-      - name: Create info.json
+      - name: ✏ Create info.json
         run: |
           jq -n --arg version "${{ github.ref_name }}" --arg commit "${{ github.sha }}" --arg date "$(date -u +%F)" '{ version: $version, commit: $commit, date: $date }' > info.json
 
-      - name: Build and Push by Digest
+      - name: 📦 🚀 Build and Push by Digest
         id: build
         uses: docker/build-push-action@v5 # https://github.com/docker/build-push-action
         with:
@@ -83,13 +90,13 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
           outputs: type=image,name=${{ env.GHCR_IMAGE }},push-by-digest=true,name-canonical=true,push=true
 
-      - name: Export Digest
+      - name: ✏ Export Digest
         run: |
           mkdir -p /tmp/digests
           digest="${{ steps.build.outputs.digest }}"
           touch "/tmp/digests/${digest#sha256:}"
 
-      - name: Upload Digest
+      - name: 🔼 Upload Digest
         uses: actions/upload-artifact@v4 # https://github.com/actions/upload-artifact
         with:
           name: digest-${{ matrix.config.folder }}
@@ -121,14 +128,14 @@ jobs:
 
     steps:
 
-      - name: Download digests
+      - name: 🔽 Download digests
         uses: actions/download-artifact@v4 # https://github.com/actions/download-artifact
         with:
           path: /tmp/digests
           pattern: digest-*
           merge-multiple: true
 
-      - name: Display downloaded artifacts
+      - name: ❔ Display downloaded artifacts
         run: ls -R /tmp/digests
 
       - name: 🔒 Login to Github Container Registry (GHCR)
@@ -139,10 +146,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Docker Buildx
+      - name: 🔽 Setup Docker Buildx
         uses: docker/setup-buildx-action@v3 # https://github.com/docker/setup-buildx-action
 
-      - name: Setup Docker Metadata
+      - name: ✏ Setup Docker Metadata
         id: metadata
         uses: docker/metadata-action@v5 # https://github.com/docker/metadata-action
         with:
@@ -153,7 +160,7 @@ jobs:
             type=raw,value=latest
             type=ref,event=tag
 
-      - name: Create and Push Manifest
+      - name: 📦 🚀 Create and Push Manifest
         working-directory: /tmp/digests
         run: |
           tags=$(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON")
