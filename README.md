@@ -123,7 +123,9 @@ FROM ghcr.io/jakoch/jupyter-devbox:latest
   - [./devcontainer/amd64/Dockerfile][amd64_dockerfile]
 - aarch64 - linux/aarch64, linux/arm64/v8, linux/arm64v8
   - [./devcontainer/arm64v8/Dockerfile][arm64_dockerfile]
-- not supported: linux/arm64/v7, linux/arm64v7
+- not supported: 
+  - armel
+  - armhf, linux/arm64/v7, linux/arm64v7
 
 - You can check your platform and available features with
   - `dpkg --print-architecture`

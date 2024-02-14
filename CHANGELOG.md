@@ -32,12 +32,24 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
   - ca-certificates
   - tzdata
   - locales
+- devcontainer.json:
+  - added python.terminal.activateEnvironment
+  - added python.defaultInterpreterPath ([#6](https://github.com/jakoch/jupyter-devbox/issues/6))
 
 ### Changed
 
+- Dockerfile:
+  - use multiple pip install runs, else the dependencies do not resolve correctly
+  - reduced number of run sections
+  - added locale setup
+  - changed ipykernel name ("jupyter_debvox") and display_name 
+- jupyter_notebook_config.py:
+  - used the ipykernel name as c.MultiKernelManager.default_kernel_name
+  - renamed deprecated c.ServerApp.token to c.IdentityProvider.token
 - moved Dockerfile for amd64 into folder ".devcontainer/amd64"
-- changed github workflow into build matrix for amd64 and arm64
-  - with an extra step, which uploads the merged manifest file
+- changed github workflow to build a multi-arch container for amd64 and arm64
+  - firstly, build each container image and a digest/manifest,
+  - secondly, upload the merged digests as one manifest file
 - changed python packages:
   - opencv-python to opencv-python-headless
 

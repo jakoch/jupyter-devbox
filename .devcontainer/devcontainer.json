@@ -32,7 +32,11 @@
                 "streetsidesoftware.code-spell-checker"
             ],
             "settings": {
-                "terminal.integrated.defaultProfile.linux": "bash"
+                "terminal.integrated.defaultProfile.linux": "bash",
+                // automatic activation of the selected python environment for the terminal = venv activate
+                "python.terminal.activateEnvironment": true,
+                // help vscode to find the python in our venv
+		"python.defaultInterpreterPath": "/opt/venv/bin/python"
             }
         }
     },

@@ -105,26 +105,28 @@ RUN pip config --user set global.disable-pip-version-check true && \
 
 # Install Python Packages
 # prefer-binary = prefer to download the precompiled wheel, even if source is newer
-# Note: leave the 2 pip install runs, else pip has a problem resolving the dependencies
+# Note: using multiple pip install runs is intentional, else pip has a problem resolving the dependencies
 RUN pip install ipykernel docutils jupyter notebook jupyterhub && \
     pip install --prefer-binary \
-    watermark pyyaml pylint h5py \
-    tensorflow \
-    matplotlib seaborn plotly graphviz \
-    keras --no-deps \
-    opencv-python-headless \
-    imutils \
-    numpy pandas pandas-datareader bottleneck \
-    scipy scikit-learn \
-    duckdb \
-    sqlalchemy \
-    pyautogui \
-    requests_cache \
-    yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
-    statsmodels
+        watermark pyyaml pylint h5py \
+        tensorflow && \
+    pip install --prefer-binary \
+        matplotlib pillow seaborn plotly graphviz \
+        keras --no-deps \
+        opencv-python-headless \
+        imutils && \
+    pip install --prefer-binary \
+        numpy pandas pandas-datareader bottleneck \
+        scipy scikit-learn \
+        duckdb \
+        sqlalchemy \
+        pyautogui \
+        requests_cache \
+        yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
+        statsmodels
 
 # Install ipykernel
-RUN /opt/venv/bin/python -m ipykernel install --user --name="Python_3"
+RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"
 
 # Re-enable dialog mode for apt-get
 ENV DEBIAN_FRONTEND=dialog
