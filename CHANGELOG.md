@@ -2,12 +2,15 @@
 
 All changes to the project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+the date format is YYYY-MM-DD.
 
 ## [Unreleased]
 
 - this is a placeholder
+
+## [1.4.0] - 2024-02-16
 
 ### Added
 
@@ -42,7 +45,7 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
   - use multiple pip install runs, else the dependencies do not resolve correctly
   - reduced number of run sections
   - added locale setup
-  - changed ipykernel name ("jupyter_debvox") and display_name 
+  - changed ipykernel name ("jupyter_debvox") and display_name
 - jupyter_notebook_config.py:
   - used the ipykernel name as c.MultiKernelManager.default_kernel_name
   - renamed deprecated c.ServerApp.token to c.IdentityProvider.token
@@ -129,7 +132,8 @@ The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html
 
 - dropped the deprecated Python 2
 
-[unreleased]: https://github.com/jakoch/jupyter-devbox/compare/v1.3.0...HEAD
+[unreleased]: https://github.com/jakoch/jupyter-devbox/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.0.0...v1.1.0

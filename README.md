@@ -91,7 +91,7 @@ Either by building the container image locally or by fetching the prebuild conta
 
 - **Step 5.** You might get a warning message for "untrusted" Notebook content.
 
-  Click `Trust` to allow executing the content of the Notebook.
+  Click `Trust` to allow running the content of the Notebook.
 
 - **Step 6.** You are now able to edit cells and run their content interactively in VSCode.
 
@@ -123,7 +123,7 @@ FROM ghcr.io/jakoch/jupyter-devbox:latest
   - [./devcontainer/amd64/Dockerfile][amd64_dockerfile]
 - aarch64 - linux/aarch64, linux/arm64/v8, linux/arm64v8
   - [./devcontainer/arm64v8/Dockerfile][arm64_dockerfile]
-- not supported: 
+- not supported:
   - armel
   - armhf, linux/arm64/v7, linux/arm64v7
 
