@@ -1,4 +1,4 @@
-# jupyter-devbox [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jakoch/jupyter-devbox/release.yml?branch=main&style=flat&logo=github&label=Image%20published%20on%20GHCR)](https://github.com/jakoch/jupyter-devbox)
+# jupyter-devbox [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jakoch/jupyter-devbox/release.yml?branch=main&style=flat&logo=github&label=Image%20published%20on%20GHCR)](https://github.com/jakoch/jupyter-devbox) ![Latest Version](https://ghcr-badge.egpl.dev/jakoch/jupyter-devbox/latest_tag?trim=major&label=latest+version&ignore=sha*) ![Image Size](https://ghcr-badge.deta.dev/jakoch/jupyter-devbox/size?color=%2344cc11&tag=v1.4.0&label=image+size&trim=) 
 
 A Docker development box for [Jupyter Notebooks][jupyter_website] with a focus on
 Computer Vision, Machine Learning, Finance, Statistics and Visualization.
