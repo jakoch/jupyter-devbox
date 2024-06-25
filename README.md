@@ -1,4 +1,4 @@
-# jupyter-devbox [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jakoch/jupyter-devbox/release.yml?branch=main&style=flat&logo=github&label=Image%20published%20on%20GHCR)](https://github.com/jakoch/jupyter-devbox) ![Latest Version](https://ghcr-badge.egpl.dev/jakoch/jupyter-devbox/latest_tag?trim=major&label=latest+version&ignore=sha*) ![Image Size](https://ghcr-badge.deta.dev/jakoch/jupyter-devbox/size?color=%2344cc11&tag=v1.4.0&label=image+size&trim=) 
+# jupyter-devbox [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jakoch/jupyter-devbox/release.yml?branch=main&style=flat&logo=github&label=Image%20published%20on%20GHCR)](https://github.com/jakoch/jupyter-devbox) ![Latest Version](https://ghcr-badge.egpl.dev/jakoch/jupyter-devbox/latest_tag?trim=major&label=latest+version&ignore=sha*) ![Image Size](https://ghcr-badge.deta.dev/jakoch/jupyter-devbox/size?color=%2344cc11&tag=v1.4.0&label=image+size&trim=)
 
 A Docker development box for [Jupyter Notebooks][jupyter_website] with a focus on
 Computer Vision, Machine Learning, Finance, Statistics and Visualization.
@@ -63,7 +63,7 @@ You need the following things to run this:
 
 There are two ways of setting the container up.
 
-Either by building the container image locally or by fetching the prebuild container image from the Github container registry.
+Either by building the container image locally or by fetching the prebuilt container image from the Github container registry.
 
 ##### Building the Container Image locally using VSCode
 
@@ -99,7 +99,7 @@ Either by building the container image locally or by fetching the prebuild conta
 
 - Enjoy! :sunglasses:
 
-##### Fetching the prebuild container image
+##### Fetching the prebuilt container image
 
 This container image is published to the Github Container Registry (GHCR).
 
@@ -131,6 +131,7 @@ FROM ghcr.io/jakoch/jupyter-devbox:latest
   - `dpkg --print-architecture`
   - `cat /proc/cpuinfo`
 
+<!-- Section for Reference Links -->
 
 [jupyter_website]:https://jupyter.org/
 [vscode_website]:https://code.visualstudio.com/

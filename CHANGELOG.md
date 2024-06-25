@@ -2,13 +2,20 @@
 
 All changes to the project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
-The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-the date format is YYYY-MM-DD.
+- The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+- The date format is YYYY-MM-DD.
+- The upcoming release version is named `vNext` and links to the changes between latest version tag and git HEAD.
 
-## [Unreleased]
+## [vNext] - unreleased
 
 - this is a placeholder
+
+## [1.5.0] - 2024-06-25
+
+- added Github Community Standard documents
+- enabled scheduled releases (weekly)
+- added ./docs/faq.md
 
 ## [1.4.0] - 2024-02-16
 
@@ -87,7 +94,7 @@ the date format is YYYY-MM-DD.
   - ms-toolsai.jupyter-renderers
   - editorconfig.editorconfig
   - streetsidesoftware.code-spell-checker
-- scan container image for vulnerabilites using trivy and upload sarif report
+- scan container image for vulnerabilities using trivy and upload sarif report
 - user is now added to sudoers.d to allow package installation
 - added python packages:
   - statsmodels
@@ -115,13 +122,13 @@ the date format is YYYY-MM-DD.
 
 ### Changed
 
-- The default remoteuser was changed from "root" to "vscode"
+- The default remote user was changed from "root" to "vscode"
 
 ## [1.0.0] - 2023-02-14
 
 ### Added
 
-- added "yfinance" python packages:
+- added python packages:
   - yfinance
 
 ### Changed
@@ -132,7 +139,10 @@ the date format is YYYY-MM-DD.
 
 - dropped the deprecated Python 2
 
-[unreleased]: https://github.com/jakoch/jupyter-devbox/compare/v1.4.0...HEAD
+<!-- Section for Reference Links -->
+
+[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.1.0...v1.2.0
