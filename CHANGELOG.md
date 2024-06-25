@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [vNext] - unreleased
 
-- this is a placeholder
+- just a placeholder
 
 ## [1.5.0] - 2024-06-25
 
