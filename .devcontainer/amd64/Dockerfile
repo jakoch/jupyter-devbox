@@ -68,8 +68,7 @@ RUN apt-get update && \
 
 # Set locale and timezone
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8 \
-    TZ=Etc/UTC
+ENV LANG=en_US.utf8 TZ=Etc/UTC
 
 # Cleanup
 RUN apt-get autoremove -fy && \
