@@ -56,14 +56,13 @@ RUN apt-get update && \
 
 # Set locale and timezone
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8 \
-    TZ=Etc/UTC
+ENV LANG=en_US.utf8 TZ=Etc/UTC
 
 # Install Rust
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/rustup.sh \
   && sh /tmp/rustup.sh -y --default-toolchain stable
-ENV HOME /root
-ENV PATH $HOME/.cargo/bin:$PATH
+ENV HOME=/root
+ENV PATH=$HOME/.cargo/bin:$PATH
 #RUN rustup --version && cargo --version && rustc --version
 #RUN rustup update
 
