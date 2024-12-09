@@ -1,3 +1,5 @@
+# Online Linter: https://hadolint.github.io/hadolint/
+# Rules:         https://github.com/hadolint/hadolint?tab=readme-ov-file#rules
 ignored:
   - DL3008
   - DL3009
