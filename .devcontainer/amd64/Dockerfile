@@ -35,7 +35,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN=true
 
 # +-----------------------------+
-# | PRE-REQUISITES/INIT PACKAGES |
+# | SETUP PACKAGES              |
 # +-----------------------------+
 
 # avoid debconf delaying package configuration, since apt-utils is not installed
