@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: MIT
 # This file is part of https://github.com/jakoch/jupyter-devbox
 
-
 # +-----------------------------+
 # | BASE IMAGE             ~32MB|        See https://hub.docker.com/_/debian
 # +-----------------------------+
@@ -35,7 +34,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true
 
 # +-----------------------------+
-# | PRE-REQUISITES/INIT PACKAGES |
+# | SETUP PACKAGES              |
 # +-----------------------------+
 
 # avoid debconf delaying package configuration, since apt-utils is not installed
