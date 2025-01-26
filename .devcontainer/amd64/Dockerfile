@@ -1,4 +1,4 @@
-# Copyright Jens A. Koch 2021.
+# SPDX-FileCopyrightText: 2021-2025 Jens A. Koch
 # SPDX-License-Identifier: MIT
 # This file is part of https://github.com/jakoch/jupyter-devbox
 

@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - just a placeholder
 
+## [1.6.0] - 2025-01-26
+
+### Changes
+
+- bumped copyright year to 2025
+
 ## [1.5.0] - 2024-06-25
 
 - added Github Community Standard documents
@@ -141,7 +147,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Section for Reference Links -->
 
-[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.5.0...HEAD
+[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.2.0...v1.3.0
