@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [vNext] - unreleased
 
-- just a placeholder
+"It was a bright day in April, and the clocks were striking thirteen." - 1984
+
+## [1.7.0] - 2025-06-12
+
+- Updated an action in GHA release workflow.
 
 ## [1.6.0] - 2025-01-26
 
@@ -147,7 +151,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Section for Reference Links -->
 
-[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.6.0...HEAD
+[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.3.0...v1.4.0
