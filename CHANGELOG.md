@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 "It was a bright day in April, and the clocks were striking thirteen." - 1984
 
+## [1.8.0] - 2025-07-30
+
+- added python package manager uv and adjusted the python installation step accordingly
+
 ## [1.7.0] - 2025-06-12
 
 - Updated an action in GHA release workflow.
@@ -151,7 +155,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Section for Reference Links -->
 
-[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.7.0...HEAD
+[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.4.0...v1.5.0
