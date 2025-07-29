@@ -87,28 +87,26 @@ RUN pip config --user set global.disable-pip-version-check true && \
     pip config --user set global.no-cache-dir true && \
     pip install --upgrade pip && \
     pip install --upgrade setuptools && \
-    pip install --upgrade wheel
+    pip install --upgrade wheel && \
+    pip install uv
 
-# Install Python Packages
-# Note: using multiple pip install runs is intentional, else pip has a problem resolving the dependencies
-RUN pip install ipykernel docutils jupyter notebook jupyterhub && \
-    pip install \
-        watermark pyyaml pylint h5py \
-        tensorflow && \
-    pip install --prefer-binary \
-        matplotlib seaborn plotly graphviz \
-        keras --no-deps \
-        opencv-python-headless \
-        imutils && \
-    pip install --prefer-binary \
-        numpy pandas pandas-datareader bottleneck \
-        scipy scikit-learn \
-        duckdb \
-        sqlalchemy \
-        pyautogui \
-        requests_cache \
-        yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
-        statsmodels
+# Install Python Packages using uv
+RUN uv pip install \
+    ipykernel docutils jupyter notebook jupyterhub \
+    watermark pyyaml pylint h5py \
+    tensorflow \
+    matplotlib seaborn plotly graphviz \
+    keras \
+    opencv-python-headless \
+    imutils \
+    numpy pandas pandas-datareader bottleneck \
+    scipy scikit-learn \
+    duckdb \
+    sqlalchemy \
+    pyautogui \
+    requests_cache \
+    yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
+    statsmodels
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"
