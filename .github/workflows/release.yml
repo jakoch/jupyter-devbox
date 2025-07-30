@@ -9,7 +9,7 @@ name: Release
 on:
   # You can manually run this workflow.
   workflow_dispatch:
-  # This workflow runs on pushing a semantic versionized tag (e.g. v1.0.0).
+  # This workflow runs on pushing a semantic versioned tag (e.g. v1.0.0).
   # This workflow does not run when pushing to the main branch.
   push:
     #branches:
@@ -33,6 +33,7 @@ jobs:
 # ---------------------------------------------------------------------------------------
 
     name: "Build Container"
+    # https://github.com/actions/runner-images
     runs-on: ubuntu-latest
 
     permissions:
@@ -65,12 +66,12 @@ jobs:
       - name: 🔽 Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      #- name: 🔒 Login to DockerHub Container Registry
-      #  if: github.event_name != 'pull_request'
-      #  uses: docker/login-action@v3 # https://github.com/docker/login-action
-      #  with:
-      #    username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #    password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: 🔒 Login to DockerHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3 # https://github.com/docker/login-action
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: 🔒 Login to Github Container Registry (GHCR)
         if: github.event_name != 'pull_request'
@@ -86,6 +87,7 @@ jobs:
         with:
           images: |
             ${{ env.GHCR_IMAGE }}
+            ${{ env.DOCKERHUB_IMAGE }}
           flavor: |
             latest=auto
           tags: |
@@ -97,7 +99,10 @@ jobs:
 
       - name: ✏ Create info.json
         run: |
-          jq -n --arg version "${{ github.ref_name }}" --arg commit "${{ github.sha }}" --arg date "$(date -u +%F)" '{ version: $version, commit: $commit, date: $date }' > info.json
+          jq -n --arg version "${{ github.ref_name }}" \
+                --arg commit "${{ github.sha }}" \
+                --arg date "$(date -u +%F)" \
+                '{ version: $version, commit: $commit, date: $date }' > info.json
 
       - name: 📦 🚀 Build and Push by Digest
         id: build
@@ -106,8 +111,10 @@ jobs:
           context: .
           file: .devcontainer/${{ matrix.config.folder }}/Dockerfile
           platforms: ${{ matrix.config.platform }}
+          tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
-          outputs: type=image,name=${{ env.GHCR_IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: ✏ Export Digest
         run: |
@@ -127,7 +134,6 @@ jobs:
         uses: hadolint/hadolint-action@v3.1.0 # https://github.com/hadolint/hadolint-action
         with:
           dockerfile: .devcontainer/${{ matrix.config.folder }}/Dockerfile
-          no-fail: true
 
 # ---------------------------------------------------------------------------------------
 
@@ -157,12 +163,12 @@ jobs:
       - name: ❔ Display downloaded artifacts
         run: ls -R /tmp/digests
 
-      #- name: 🔒 Login to DockerHub Container Registry
-      #  if: github.event_name != 'pull_request'
-      #  uses: docker/login-action@v3 # https://github.com/docker/login-action
-      #  with:
-      #    username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #    password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: 🔒 Login to DockerHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3 # https://github.com/docker/login-action
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: 🔒 Login to Github Container Registry (GHCR)
         if: github.event_name != 'pull_request'
@@ -181,16 +187,25 @@ jobs:
         with:
           images: |
             ${{ env.GHCR_IMAGE }}
+            ${{ env.DOCKERHUB_IMAGE }}
           tags: |
             type=sha
             type=raw,value=latest
             type=ref,event=tag
 
-      - name: 📦 🚀 Create and Push Manifest
+      - name: 📦 🚀 Create and Push Manifest (GHCR)
         working-directory: /tmp/digests
         run: |
           tags=$(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON")
           sources=$(printf '${{ env.GHCR_IMAGE }}@sha256:%s ' *)
+          echo "$sources"
+          docker buildx imagetools create $tags $sources
+
+      - name: 📦 🚀 Create and Push Manifest (DockerHub)
+        working-directory: /tmp/digests
+        run: |
+          tags=$(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON")
+          sources=$(printf '${{ env.DOCKERHUB_IMAGE }}@sha256:%s ' *)
           echo "$sources"
           docker buildx imagetools create $tags $sources
 
