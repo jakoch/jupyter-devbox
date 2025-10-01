@@ -56,7 +56,7 @@ jobs:
           docker-images: false
 
       - name: 🤘 Checkout
-        uses: actions/checkout@v4 # https://github.com/actions/checkout
+        uses: actions/checkout@v5 # https://github.com/actions/checkout
 
       - name: 🔽 Setup QEMU
         uses: docker/setup-qemu-action@v3 # https://github.com/docker/setup-qemu-action
