@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 "It was a bright day in April, and the clocks were striking thirteen." - 1984
 
+## [1.9.0] - 2025-11-29
+
+- updated Debian to v13 (trixie)
+- fixed some minor issues on finance.ipynb, due to changed APIs
+- added an rule-of-72.ipynb, a finance notebook demonstrating how to use Markdown
+  and LaTeX to render mathematical formulas.
+
 ## [1.8.0] - 2025-07-30
 
 - added python package manager uv and adjusted the python installation step accordingly
@@ -155,7 +162,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Section for Reference Links -->
 
-[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.8.0...HEAD
+[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.9.0...HEAD
+[1.8.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.5.0...v1.6.0
