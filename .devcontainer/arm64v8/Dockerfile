@@ -8,7 +8,7 @@
 
 # Platform/Architecture = linux/arm64v8 = linux/arm64/v8 = arm64 = aarch64
 
-FROM arm64v8/debian:bookworm-slim
+FROM arm64v8/debian:trixie-slim
 
 # +-----------------------------+
 # | METADATA                    |

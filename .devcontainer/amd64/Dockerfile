@@ -8,7 +8,7 @@
 
 # Platform/Architecture = linux/amd64
 
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 # +-----------------------------+
 # | METADATA                    |
