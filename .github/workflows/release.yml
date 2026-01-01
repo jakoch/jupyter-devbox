@@ -155,7 +155,7 @@ jobs:
     steps:
 
       - name: 🔽 Download digests
-        uses: actions/download-artifact@v6 # https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v7 # https://github.com/actions/download-artifact
         with:
           path: /tmp/digests
           pattern: digest-*
