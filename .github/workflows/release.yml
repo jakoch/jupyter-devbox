@@ -124,7 +124,7 @@ jobs:
           touch "/tmp/digests/${digest#sha256:}"
 
       - name: 🔼 Upload Digest
-        uses: actions/upload-artifact@v5 # https://github.com/actions/upload-artifact
+        uses: actions/upload-artifact@v6 # https://github.com/actions/upload-artifact
         with:
           name: digest-${{ matrix.config.folder }}
           path: /tmp/digests/*
