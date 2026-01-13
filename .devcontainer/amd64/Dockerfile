@@ -106,7 +106,7 @@ RUN uv pip install \
     requests_cache \
     yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
     statsmodels \
-    python-lsp-server[all]
+    python-lsp-server
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"
