@@ -19,7 +19,7 @@ The images of this repository are available on Github Container Registry (GHCR).
 
 #### What is pre-installed?
 
-Base: Debian 12 - Bookworm
+Base: Debian 13 - Trixie
 
 On top of the base image the following tools are installed:
 
@@ -29,26 +29,28 @@ On top of the base image the following tools are installed:
 
 These programming languages are included:
 
-- Python 3 (including  pip, setuptools, wheel, venv)
+- Python 3 (including  pip, setuptools, wheel, venv, uv)
 - C & C++ (g++)
 
 The installed Python libraries are:
 
-- jupyter ipykernel docutils pyyaml pylint
-- h5py
-- tensorflow keras
-- pandas pandas-datareader
-- duckdb
-- numpy scipy sklearn
+- ipykernel docutils jupyter notebook jupyterhub jupyterlab-code-formatter
+- watermark pyyaml pylint ruff h5py
+- tensorflow
 - matplotlib seaborn plotly graphviz
+- keras
 - opencv-python-headless
 - imutils
+- numpy pandas pandas-datareader bottleneck
+- scipy scikit-learn
+- duckdb
 - sqlalchemy
 - pyautogui
-- yfinance alpha_vantage nasdaq-data-link
+- requests_cache
+- yfinance alpha_vantage nasdaq-data-link finnhub-python
 - financetoolkit financedatabase
 - statsmodels
-- requests_cache
+- python-lsp-server[all]
 
 You can find a list of all installed packages in the [notebooks/check_devbox.ipynb][check_devbox_ipynb_main] Notebook.
 

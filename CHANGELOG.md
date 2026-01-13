@@ -11,6 +11,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 "It was a bright day in April, and the clocks were striking thirteen." - 1984
 
+## [2.0.0] - 2026-01-13
+
+### Added
+
+- added python packages:
+  - python-lsp-server[all] (which provides Python Language Server support)
+
+### Changed
+
+- reduced number of layers by combining/concatenating some ENV and RUN commands
+- synced python packages between images:
+  - added ruff and jupyterlab-code-formatter to arm64v8 image
+  - removed Pillow from the direct requirements of arm64v8;
+    it is already fetched as a transitive dependency of another package.
+
+### Removed
+
+- removed the installation of Rust from the arm64v8 image
+
 ## [1.9.0] - 2025-11-29
 
 - updated Debian to v13 (trixie)
@@ -162,7 +181,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Section for Reference Links -->
 
-[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v1.9.0...HEAD
+[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.9.0...v2.0.0
 [1.9.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.6.0...v1.7.0

@@ -104,10 +104,10 @@ RUN pip config --user set global.disable-pip-version-check true && \
 
 # Install Python Packages using uv
 RUN uv pip install \
-    ipykernel docutils jupyter notebook jupyterhub \
-    watermark pyyaml pylint h5py \
+    ipykernel docutils jupyter notebook jupyterhub jupyterlab-code-formatter \
+    watermark pyyaml pylint ruff h5py \
     tensorflow \
-    matplotlib pillow seaborn plotly graphviz \
+    matplotlib seaborn plotly graphviz \
     keras \
     opencv-python-headless \
     imutils \
