@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021-2025 Jens A. Koch
+# SPDX-FileCopyrightText: 2021-2026 Jens A. Koch
 # SPDX-License-Identifier: MIT
 # This file is part of https://github.com/jakoch/jupyter-devbox
 
@@ -31,8 +31,8 @@ ARG USER_GID=$USER_UID
 # | ENV                         |
 # +-----------------------------+
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV DEBCONF_NONINTERACTIVE_SEEN=true
+ENV DEBIAN_FRONTEND=noninteractive \
+    DEBCONF_NONINTERACTIVE_SEEN=true
 
 # +-----------------------------+
 # | SETUP PACKAGES              |
@@ -50,31 +50,30 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
-        git zsh curl wget nano openssh-client ca-certificates tzdata locales \
-        gcc g++ build-essential cmake ninja-build \
-        zip unzip bzip2 \
-        libjpeg-dev libpng-dev libpq-dev \
-        imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
+    git zsh curl wget nano openssh-client ca-certificates tzdata locales \
+    gcc g++ build-essential cmake ninja-build \
+    zip unzip bzip2 \
+    libjpeg-dev libpng-dev libpq-dev \
+    imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
     # opencv
-        libopencv-dev \
+    libopencv-dev \
     # py3
-        python3 \
-        python3-dev \
-        python3-pip \
-        python3-venv \
-        python3-wheel \
-        python3-setuptools
-        #python3-opencv \ # 4.6.0
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-venv \
+    python3-wheel \
+    python3-setuptools && \
+    #python3-opencv \ # 4.6.0
+    # Cleanup
+    apt-get autoremove -fy && \
+    apt-get clean && \
+    apt-get autoclean -y && \
+    rm -rf /var/lib/apt/lists/*
 
 # Set locale and timezone
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG=en_US.utf8 TZ=Etc/UTC
-
-# Cleanup
-RUN apt-get autoremove -fy && \
-    apt-get clean && \
-    apt-get autoclean -y && \
-    rm -rf /var/lib/apt/lists/*
 
 # Use a virtual environment for Python (to avoid PEP668 "externally managed environment" error).
 ENV VIRTUAL_ENV=/opt/venv
@@ -92,8 +91,8 @@ RUN pip config --user set global.disable-pip-version-check true && \
 
 # Install Python Packages using uv
 RUN uv pip install \
-    ipykernel docutils jupyter notebook jupyterhub \
-    watermark pyyaml pylint h5py \
+    ipykernel docutils jupyter notebook jupyterhub jupyterlab-code-formatter \
+    watermark pyyaml pylint ruff h5py \
     tensorflow \
     matplotlib seaborn plotly graphviz \
     keras \
@@ -106,7 +105,8 @@ RUN uv pip install \
     pyautogui \
     requests_cache \
     yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
-    statsmodels
+    statsmodels \
+    python-lsp-server[all]
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"

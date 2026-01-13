@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2021-2025 Jens A. Koch
+# SPDX-FileCopyrightText: 2021-2026 Jens A. Koch
 # SPDX-License-Identifier: MIT
 # This file is part of https://github.com/jakoch/jupyter-devbox
 
@@ -18,6 +18,7 @@ LABEL org.opencontainers.image.licenses="MIT" \
       org.opencontainers.image.vendor="Jens A. Koch" \
       org.opencontainers.image.authors="Jens A. Koch <jakoch@web.de>" \
       org.opencontainers.image.source="https://github.com/jakoch/jupyter-devbox"
+
 # +-----------------------------+
 # | ARGS                        |
 # +-----------------------------+
@@ -58,32 +59,31 @@ RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG=en_US.utf8 TZ=Etc/UTC
 
 # Install Rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/rustup.sh \
-  && sh /tmp/rustup.sh -y --default-toolchain stable
-ENV HOME=/root
-ENV PATH=$HOME/.cargo/bin:$PATH
+#RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/rustup.sh \
+#  && sh /tmp/rustup.sh -y --default-toolchain stable
+#ENV HOME=/root
+#ENV PATH=$HOME/.cargo/bin:$PATH
 #RUN rustup --version && cargo --version && rustc --version
 #RUN rustup update
 
 RUN apt-get -y install --no-install-recommends \
-        libjpeg-dev libpng-dev libpq-dev \
-        imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
-        re2c libffi-dev libffi8 gfortran libxsimd-dev libhdf5-serial-dev \
-        libxml2-dev libxslt-dev \
+    libjpeg-dev libpng-dev libpq-dev \
+    imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
+    re2c libffi-dev libffi8 gfortran libxsimd-dev libhdf5-serial-dev \
+    libxml2-dev libxslt-dev \
     # OPENCV
-        libopencv-dev \
+    libopencv-dev \
     # BLAS and LAPACK, OPENBLAS and BLIS
-        libblas-dev liblapack-dev libopenblas-dev libblis-dev \
+    libblas-dev liblapack-dev libopenblas-dev libblis-dev \
     # py3
-        python3 \
-        python3-dev \
-        python3-pip \
-        python3-venv \
-        python3-wheel \
-        python3-setuptools
-
-# Cleanup
-RUN apt-get autoremove -fy && \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-venv \
+    python3-wheel \
+    python3-setuptools && \
+    # Cleanup
+    apt-get autoremove -fy && \
     apt-get clean && \
     apt-get autoclean -y && \
     rm -rf /var/lib/apt/lists/*
@@ -118,7 +118,8 @@ RUN uv pip install \
     pyautogui \
     requests_cache \
     yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
-    statsmodels
+    statsmodels \
+    python-lsp-server[all]
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"
