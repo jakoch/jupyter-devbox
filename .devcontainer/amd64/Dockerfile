@@ -91,22 +91,26 @@ RUN pip config --user set global.disable-pip-version-check true && \
 
 # Install Python Packages using uv
 RUN uv pip install \
-    ipykernel docutils jupyter notebook jupyterhub jupyterlab-code-formatter \
-    watermark pyyaml pylint ruff h5py \
+    ipykernel docutils jupyter notebook jupyterhub \
+    # Code Formatters
+    jupyterlab-code-formatter watermark pyyaml pylint ruff black isort \
+    # LSP
+    jupyterlab-lsp python-lsp-server python-lsp-black python-lsp-ruff python-lsp-isort \
+    jupyterlab-spellchecker \
+    jupyterlab-execute-time \
     tensorflow \
     matplotlib seaborn plotly graphviz \
     keras \
     opencv-python-headless \
     imutils \
-    numpy pandas pandas-datareader bottleneck \
+    numpy pandas pandas-datareader bottleneck h5py \
     scipy scikit-learn \
     duckdb \
     sqlalchemy \
     pyautogui \
     requests_cache \
     yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
-    statsmodels \
-    python-lsp-server
+    statsmodels
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"

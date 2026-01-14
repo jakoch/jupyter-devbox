@@ -34,25 +34,28 @@ These programming languages are included:
 
 The installed Python libraries are:
 
-- ipykernel docutils jupyter notebook jupyterhub jupyterlab-code-formatter
-- watermark pyyaml pylint ruff h5py
-- tensorflow
-- matplotlib seaborn plotly graphviz
-- keras
-- opencv-python-headless
-- imutils
-- numpy pandas pandas-datareader bottleneck
-- scipy scikit-learn
-- duckdb
-- sqlalchemy
-- pyautogui
-- requests_cache
-- yfinance alpha_vantage nasdaq-data-link finnhub-python
-- financetoolkit financedatabase
+- ipykernel docutils jupyter notebook jupyterhub \
+- jupyterlab-code-formatter watermark pyyaml pylint ruff black isort \
+- jupyterlab-lsp python-lsp-server python-lsp-black python-lsp-ruff python-lsp-isort \
+- jupyterlab-spellchecker \
+- jupyterlab-execute-time \
+- tensorflow \
+- matplotlib seaborn plotly graphviz \
+- keras \
+- opencv-python-headless \
+- imutils \
+- numpy pandas pandas-datareader bottleneck h5py \
+- scipy scikit-learn \
+- duckdb \
+- sqlalchemy \
+- pyautogui \
+- requests_cache \
+- yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
 - statsmodels
-- python-lsp-server[all]
 
 You can find a list of all installed packages in the [notebooks/check_devbox.ipynb][check_devbox_ipynb_main] Notebook.
+
+You can also run `jupyter labextension list` to list all enabled extensions.
 
 #### Prerequisites
 
