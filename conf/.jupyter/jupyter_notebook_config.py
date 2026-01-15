@@ -44,9 +44,14 @@ c.MultiKernelManager.default_kernel_name = "jupyter_devbox"
 c.InlineBackend.figure_formats = {"png", "jpeg", "svg", "pdf"}
 
 # JupyterLab Code Formatter settings
+# Note:
+# "black --skip-errors" is added to allow the python code blocks to
+# include jupyter-specific magic commands starting with % or !
+# Both chars result in a syntax error when black tries to format the code cell.
 c.JupyterLabCodeFormatter.formatters = {
     "black": {
         "module": "jupyterlab_code_formatter.formatters.black",
+		"args": ["--skip-errors"],
     },
     "isort": {
         "module": "jupyterlab_code_formatter.formatters.isort",

@@ -49,7 +49,15 @@
 					"editor.codeActionsOnSave": {
 						"source.organizeImports": "always"
 					}
-				}
+				},
+				// --skip-errors is added to allow the python code blocks to
+				// include jupyter-specific magic commands starting with % or !
+				// Both chars result in a syntax error when black tries to format the code cell.
+				"black-formatter.args": [
+					"--line-length", "90",
+					"--skip-errors",
+					"--skip-magic-trailing-comma"
+				]
 			}
 		}
 	},
