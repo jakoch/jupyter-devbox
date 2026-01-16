@@ -11,12 +11,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 "It was a bright day in April, and the clocks were striking thirteen." - 1984
 
+## [2.0.1] - 2026-01-16
+
+This release focuses on two main areas:
+
+1. Integration of language server support for standalone Python and JupyterLab.
+2. Improvement of code formatting using the Black formatter.
+
+### Added
+
+- added python packages:
+  - black isort
+  - jupyterlab-lsp
+  - python-lsp-server, python-lsp-black, python-lsp-ruff, python-lsp-isort
+  - jupyterlab-spellchecker
+  - jupyterlab-execute-time
+- added automatic formatting of Python code cells using Black
+  - to Jupyter using `c.JupyterLabCodeFormatter` in `jupyter_notebook_config.py`
+  - to VSCode using `customizations.vscode.settings` in `devcontainer.json`
+- added `.virtual_documents` to `.gitignore`
+  (The folder stores temporary copies of unsaved documents for LSP access.)
+- added "dot-files" to `.dockerignore`, updated `.editorconfig`
+
 ## [2.0.0] - 2026-01-13
 
 ### Added
 
 - added python packages:
-  - python-lsp-server[all] (which provides Python Language Server support)
+  - python-lsp-server (which provides Python Language Server support)
 
 ### Changed
 
@@ -181,7 +203,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- Section for Reference Links -->
 
-[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v2.0.0...HEAD
+[vNext]: https://github.com/jakoch/jupyter-devbox/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/jakoch/jupyter-devbox/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.9.0...v2.0.0
 [1.9.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/jakoch/jupyter-devbox/compare/v1.7.0...v1.8.0
