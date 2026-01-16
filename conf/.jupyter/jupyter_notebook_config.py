@@ -51,7 +51,7 @@ c.InlineBackend.figure_formats = {"png", "jpeg", "svg", "pdf"}
 c.JupyterLabCodeFormatter.formatters = {
     "black": {
         "module": "jupyterlab_code_formatter.formatters.black",
-		"args": ["--skip-errors"],
+        "args": ["--line-length=80", "--skip-magic-trailing-comma"],
     },
     "isort": {
         "module": "jupyterlab_code_formatter.formatters.isort",
