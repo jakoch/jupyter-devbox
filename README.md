@@ -1,27 +1,42 @@
 # jupyter-devbox [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jakoch/jupyter-devbox/release.yml?branch=main&style=flat&logo=github&label=Image%20published%20on%20GHCR)](https://github.com/jakoch/jupyter-devbox) ![Latest Version](https://ghcr-badge.egpl.dev/jakoch/jupyter-devbox/latest_tag?trim=major&label=latest+version&ignore=sha*) ![Image Size](https://ghcr-badge.egpl.dev/jakoch/jupyter-devbox/size?color=%2344cc11&tag=latest&label=image+size&trim=)
 
-A Docker development box for [Jupyter Notebooks][jupyter_website] with a focus on
+A Docker-based development container for [Jupyter Notebooks][jupyter_website] with a focus on
 Computer Vision, Machine Learning, Finance, Statistics and Visualization.
 
-The following sections describe the container images, including their packages,
-how to build or download them, and how to set them up.
+It is designed especially for use with Visual Studio Code or any IDE
+that supports the devcontainer standard. The images can also be used in CI workflows.
 
-#### What is this?
+## Purpose
 
-This is a Docker container supporting multiple architectures based on Debian Linux ([amd64][amd64_dockerfile] & [arm64][arm64_dockerfile]).
+jupyter-devbox provides a portable, standardized container with a ready-to-use
+Jupyter Notebook environment for interactive Python development in [Visual Studio Code][vscode_website].
 
-It sets up an Jupyter Notebook development environment for interactive Python programming for [Visual Studio Code][vscode_website].
+It ships with a curated set of scientific computing libraries, including
+OpenCV, TensorFlow, Keras, NumPy, Pandas, DuckDB, scikit-learn, SciPy,
+Matplotlib, Seaborn, imutils, and SQLAlchemy.
 
-It has preinstalled scientific computing packages (including OpenCV, Tensorflow, Keras, Numpy, Pandas, DuckDB,
-Sklearn, Scipy, Matplotlib, Seaborn, Imutils, SqlAlchemy).
+All Python packages are managed with `uv` for fast, reliable installs,
+making it easy to add project-specific dependencies.
+Additional developer tools include code formatters (Black, Ruff, isort),
+LSP support, spell checking, and execution timing.
 
-The images of this repository are available on Github Container Registry (GHCR).
+## Images
 
-#### What is pre-installed?
+### Base distribution
+
+This repository provides Docker images based on Debian 13 (Trixie, stable).
+
+The images support multiple architectures: [amd64][amd64_dockerfile] and [arm64][arm64_dockerfile].
+
+### Container Registries
+
+The images are automatically published to Github Container Registry (GHCR) and Docker Hub (hub.docker.com) upon updates.
+
+## What is pre-installed?
 
 Base: Debian 13 - Trixie
 
-On top of the base image the following tools are installed:
+On top of the Debian base image the following tools are installed:
 
 - zsh, git, cmake, nano
 - curl, wget
@@ -30,47 +45,47 @@ On top of the base image the following tools are installed:
 These programming languages are included:
 
 - Python 3 (including  pip, setuptools, wheel, venv, uv)
-- C & C++ (g++)
+- C & C++ (g++, cmake, ninja)
 
 The installed Python libraries are:
 
-- ipykernel docutils jupyter notebook jupyterhub \
-- jupyterlab-code-formatter watermark pyyaml pylint ruff black isort \
-- jupyterlab-lsp python-lsp-server python-lsp-black python-lsp-ruff python-lsp-isort \
-- jupyterlab-spellchecker \
-- jupyterlab-execute-time \
-- tensorflow \
-- matplotlib seaborn plotly graphviz \
-- keras \
-- opencv-python-headless \
-- imutils \
-- numpy pandas pandas-datareader bottleneck h5py \
-- scipy scikit-learn \
-- duckdb \
-- sqlalchemy \
-- pyautogui \
-- requests_cache \
-- yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
+- ipykernel docutils jupyter notebook jupyterhub
+- jupyterlab-code-formatter watermark pyyaml pylint ruff black isort
+- jupyterlab-lsp python-lsp-server python-lsp-black python-lsp-ruff python-lsp-isort
+- jupyterlab-spellchecker
+- jupyterlab-execute-time
+- tensorflow
+- matplotlib seaborn plotly graphviz
+- keras
+- opencv-python-headless
+- imutils
+- numpy pandas pandas-datareader bottleneck h5py
+- scipy scikit-learn
+- duckdb
+- sqlalchemy
+- pyautogui
+- requests_cache
+- yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase
 - statsmodels
 
 You can find a list of all installed packages in the [notebooks/check_devbox.ipynb][check_devbox_ipynb_main] Notebook.
 
-You can also run `jupyter labextension list` to list all enabled extensions.
+You can run `jupyter labextension list` to list all enabled extensions.
 
-#### Prerequisites
+## Prerequisites
 
 You need the following things to run this:
 
 - Docker
 - Visual Studio Code
 
-#### How to run this?
+## How to run this?
 
 There are two ways of setting the container up.
 
 Either by building the container image locally or by fetching the prebuilt container image from the Github container registry.
 
-##### Building the Container Image locally using VSCode
+### Building the Container Image locally using VSCode
 
 - **Step 1.** Get the source: clone this repository using git or download the zip
 
@@ -104,7 +119,7 @@ Either by building the container image locally or by fetching the prebuilt conta
 
 - Enjoy! :sunglasses:
 
-##### Fetching the prebuilt container image
+### Fetching the prebuilt container image
 
 This container image is published to the Github Container Registry (GHCR).
 

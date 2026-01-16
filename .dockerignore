@@ -3,6 +3,16 @@
 #
 # Docs: https://docs.docker.com/engine/reference/builder/#dockerignore-file
 #
+
+# Folders
 .devcontainer/
 .git/
 .github/
+
+# Files
+.editorconfig
+.gitignore
+.hadolint.yml
+CHANGELOG.md
+LICENSE
+README.md

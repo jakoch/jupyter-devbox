@@ -7,9 +7,16 @@
 nohup.out
 
 # ignore notebook checkpoints
+# The folder stores snapshots of notebooks to allow recovery of unsaved changes.
 
 *.ipynb_checkpoints
 .ipynb_checkpoints
+
+# ignore virtual documents
+# The folder stores temporary copies of unsaved documents for LSP access.
+
+*.virtual_documents
+.virtual_documents
 
 # ignore project local Visual Studio Code configs
 
