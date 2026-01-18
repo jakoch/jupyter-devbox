@@ -124,7 +124,7 @@ jobs:
         run: |
           digest="${{ steps.build.outputs.digest }}"
           image="${{ env.GHCR_IMAGE }}@${digest}"
-          version=$(cat info.json | sed 's/^{//;s/}$//')
+          version=$(jq -c . info.json)
           docker run --rm \
             -v "${{ github.workspace }}/notebooks:/workspace/notebooks" \
             -e VERSION="$version" \
