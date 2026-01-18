@@ -120,7 +120,7 @@ jobs:
       # Build a clean banner string like: "Version: main, Commit: a0afbc7e, Date: 2026-01-18"
       - name: 📦 Read and format version info from info.json
         run: |
-          BANNER=$(jq -r '"Version: \(.version), Commit: \(.commit), Date: \(.date)"' info.json)
+          BANNER=$(jq -r '"Platform: ${{ matrix.config.platform }}, Version: \(.version), Commit: \(.commit[0:8]), Date: \(.date)"' info.json)
           echo "VERSION_BANNER=$BANNER" >> "$GITHUB_ENV"
 
       # Verify that the image works by running a test notebook.
