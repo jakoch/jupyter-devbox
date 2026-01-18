@@ -31,7 +31,7 @@ This release focuses on three main areas:
   - jupyterlab-execute-time
   - nbconvert
   - papermill
-- added automatic formatting of Python code cells using Black
+- added automatic formatting of Python code cells using Black "on save"
   - to Jupyter using `c.JupyterLabCodeFormatter` in `jupyter_notebook_config.py`
   - to VSCode using `customizations.vscode.settings` in `devcontainer.json`
 - added `.virtual_documents` to `.gitignore`
@@ -41,10 +41,14 @@ This release focuses on three main areas:
   - including ohmyzsh and powerline_fonts
   - zsh plugins: autosuggestions, autocompletions, history search
 - added CI steps to generate HTML version overview from `check_devbox.ipynb`
+  - version overview is per image variant
+  - uploaded as build artifact
 
 ### Changed
 
 - default shell is no longer `bash`, but `zsh`
+- removed `%matplotlib inline` (magic quote commands) as these break formatting
+  - ref. [#20](https://github.com/jakoch/jupyter-devbox/issues/20)
 - altered `notebooks/check_devbox.ipynb`
   - for CI usage by adding versioning placeholder
   - added list of jupyterlab extensions
