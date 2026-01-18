@@ -117,6 +117,33 @@ jobs:
           cache-to: type=gha,mode=max
           push: true
 
+      # Verify that the image works by running a test notebook.
+      # The notebook gets the version information from info.json as one parameter.
+      # The notebook execution output is converted to HTML and uploaded as an artifact.
+      - name: 🧪 Test Docker Image
+        run: |
+          digest="${{ steps.build.outputs.digest }}"
+          image="${{ env.GHCR_IMAGE }}@${digest}"
+          version=$(cat info.json | sed 's/^{//;s/}$//')
+          docker run --rm \
+            -v "${{ github.workspace }}/notebooks:/workspace/notebooks" \
+            -e VERSION="$version" \
+            "$image" \
+            bash -c "set -euxo pipefail; \
+              # Replace {{VERSION}} in the notebook inside container
+              sed -i \"s|{{VERSION}}|\${VERSION}|g\" /workspace/notebooks/check_devbox.ipynb; \
+              # Convert notebook to HTML
+              jupyter nbconvert --to html /workspace/notebooks/check_devbox.ipynb \
+                --output check_devbox_versioned_${{ matrix.config.folder }}.html"
+
+      - name: 🔼 Upload Test Output
+        uses: actions/upload-artifact@v6
+        with:
+          name: notebook-check-devbox-${{ matrix.config.folder }}
+          path: notebooks/check_devbox_versioned_${{ matrix.config.folder }}.html
+          if-no-files-found: error
+          retention-days: 1
+
       - name: ✏ Export Digest
         run: |
           mkdir -p /tmp/digests
