@@ -113,7 +113,7 @@ RUN uv pip install \
     # Data Analysis
     numpy pandas pandas-datareader \
     # ML
-    scipy scikit-learn topt statsmodels \
+    scipy scikit-learn statsmodels \
     # DB
     duckdb sqlalchemy \
     # Automation
