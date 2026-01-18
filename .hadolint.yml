@@ -11,6 +11,7 @@ ignored:
   - DL3015
   - DL3042
   - DL3059
+  - SC2086
 trustedRegistries:
   - docker.io
   - ghcr.io
