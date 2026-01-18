@@ -145,15 +145,17 @@ jobs:
             -v "${{ github.workspace }}/notebooks:/workspace/notebooks" \
             "$image" \
             bash -c 'set -euxo pipefail
-              jupyter nbconvert --to html /workspace/notebooks/check_devbox_versioned.ipynb \
-                --output check_devbox_versioned_${{ matrix.config.folder }}.html
+              jupyter nbconvert --to notebook --execute /workspace/notebooks/check_devbox_versioned.ipynb \
+                --output /workspace/notebooks/check_devbox_versioned_executed.ipynb
+              jupyter nbconvert --to html /workspace/notebooks/check_devbox_versioned_executed.ipynb \
+                --output check_devbox_${{ matrix.config.folder }}.html
             '
 
       - name: 🔼 Upload Test Output
         uses: actions/upload-artifact@v6
         with:
           name: notebook-check-devbox-${{ matrix.config.folder }}
-          path: notebooks/check_devbox_versioned_${{ matrix.config.folder }}.html
+          path: notebooks/check_devbox_${{ matrix.config.folder }}.html
           if-no-files-found: error
           retention-days: 1
 
