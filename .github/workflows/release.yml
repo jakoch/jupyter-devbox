@@ -117,25 +117,37 @@ jobs:
           cache-to: type=gha,mode=max
           push: true
 
+      # Build a clean banner string like: "Version: main, Commit: a0afbc7e, Date: 2026-01-18"
+      - name: 📦 Read and format version info from info.json
+        run: |
+          BANNER=$(jq -r '"Version: \(.version), Commit: \(.commit), Date: \(.date)"' info.json)
+          echo "VERSION_BANNER=$BANNER" >> "$GITHUB_ENV"
+
       # Verify that the image works by running a test notebook.
       # The notebook gets the version information from info.json as one parameter.
       # The notebook execution output is converted to HTML and uploaded as an artifact.
-      - name: 🧪 Test Docker Image
+      - name: 🧪 Inject version & Test Docker Image
         run: |
           digest="${{ steps.build.outputs.digest }}"
           image="${{ env.GHCR_IMAGE }}@${digest}"
-          echo "JSON to JSON-escaped string and remove newline"
-          version=$(jq -rc . info.json | jq -Rs 'rtrimstr("\n")')
+          echo "Pre-process the notebook to inject the version banner"
+          jq --arg banner "${{ env.VERSION_BANNER }}" '
+            .cells |= map(
+              if .cell_type == "markdown" then
+                .source |= map(gsub("{{VERSION}}"; $banner))
+              else
+                .
+              end
+            )
+          ' notebooks/check_devbox.ipynb > notebooks/check_devbox_versioned.ipynb
+          echo "Run container to convert the pre-processed notebook to HTML"
           docker run --rm \
             -v "${{ github.workspace }}/notebooks:/workspace/notebooks" \
-            -e VERSION="$version" \
             "$image" \
-            bash -c "set -euxo pipefail; \
-              # Replace {{VERSION}} in the notebook inside container
-              sed -i \"s|{{VERSION}}|\${VERSION}|g\" /workspace/notebooks/check_devbox.ipynb; \
-              # Convert notebook to HTML
-              jupyter nbconvert --to html /workspace/notebooks/check_devbox.ipynb \
-                --output check_devbox_versioned_${{ matrix.config.folder }}.html"
+            bash -c 'set -euxo pipefail
+              jupyter nbconvert --to html /workspace/notebooks/check_devbox_versioned.ipynb \
+                --output check_devbox_versioned_${{ matrix.config.folder }}.html
+            '
 
       - name: 🔼 Upload Test Output
         uses: actions/upload-artifact@v6
