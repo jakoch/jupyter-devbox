@@ -11,27 +11,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 "It was a bright day in April, and the clocks were striking thirteen." - 1984
 
-## [2.0.1] - 2026-01-16
+## [2.0.1] - 2026-01-18
 
-This release focuses on two main areas:
+This release focuses on three main areas:
 
 1. Integration of language server support for standalone Python and JupyterLab.
-2. Improvement of code formatting using the Black formatter.
+2. Integration of code formatting using the Black formatter in VSCode and Jupyter.
+3. Setup of zsh as default shell.
 
 ### Added
 
+- added debian packages:
+  - pandoc (for nbconvert)
 - added python packages:
   - black isort
   - jupyterlab-lsp
   - python-lsp-server, python-lsp-black, python-lsp-ruff, python-lsp-isort
   - jupyterlab-spellchecker
   - jupyterlab-execute-time
+  - nbconvert
+  - papermill
 - added automatic formatting of Python code cells using Black
   - to Jupyter using `c.JupyterLabCodeFormatter` in `jupyter_notebook_config.py`
   - to VSCode using `customizations.vscode.settings` in `devcontainer.json`
 - added `.virtual_documents` to `.gitignore`
   (The folder stores temporary copies of unsaved documents for LSP access.)
 - added "dot-files" to `.dockerignore`, updated `.editorconfig`
+- added zsh setup
+  - including ohmyzsh and powerline_fonts
+  - zsh plugins: autosuggestions, autocompletions, history search
+- added CI steps to generate HTML version overview from `check_devbox.ipynb`
+
+### Changed
+
+- default shell is no longer `bash`, but `zsh`
+- altered `notebooks/check_devbox.ipynb`
+  - for CI usage by adding versioning placeholder
+  - added list of jupyterlab extensions
 
 ## [2.0.0] - 2026-01-13
 
