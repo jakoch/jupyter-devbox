@@ -55,6 +55,7 @@ RUN apt-get update && \
     zip unzip bzip2 \
     libjpeg-dev libpng-dev libpq-dev \
     imagemagick gnuplot gnuplot-x11 libssl-dev libzmq3-dev graphviz \
+    pandoc libxml2-dev libxslt-dev \
     # opencv
     libopencv-dev \
     # py3
@@ -64,7 +65,6 @@ RUN apt-get update && \
     python3-venv \
     python3-wheel \
     python3-setuptools && \
-    #python3-opencv \ # 4.6.0
     # Cleanup
     apt-get autoremove -fy && \
     apt-get clean && \
@@ -91,29 +91,75 @@ RUN pip config --user set global.disable-pip-version-check true && \
 
 # Install Python Packages using uv
 RUN uv pip install \
-    ipykernel docutils jupyter notebook jupyterhub \
-    # Code Formatters
-    jupyterlab-code-formatter watermark pyyaml pylint ruff black isort \
-    # LSP
-    jupyterlab-lsp python-lsp-server python-lsp-black python-lsp-ruff python-lsp-isort \
+    # Jupyter
+    ipykernel jupyter notebook jupyterhub jupyter-book \
+    # Jupyterlab Extensions
+    jupyterlab-code-formatter \
+    jupyterlab-lsp \
     jupyterlab-spellchecker \
     jupyterlab-execute-time \
-    tensorflow \
-    matplotlib seaborn plotly graphviz \
-    keras \
+    # Jupyter Tools
+    nbconvert papermill[black] \
+    # Python
+    pyyaml pylint ruff black[jupyter] isort \
+    python-lsp-server python-lsp-black python-lsp-ruff python-lsp-isort \
+    docutils watermark bottleneck requests_cache \
+    # Learning
+    tensorflow keras \
+    # Graphics and Visualization
+    matplotlib seaborn plotly bokeh graphviz imutils \
+    # CPU-only OpenCV
     opencv-python-headless \
-    imutils \
-    numpy pandas pandas-datareader bottleneck h5py \
-    scipy scikit-learn \
-    duckdb \
-    sqlalchemy \
+    # Data Analysis
+    numpy pandas pandas-datareader \
+    # ML
+    scipy scikit-learn statsmodels \
+    # DB
+    duckdb sqlalchemy \
+    # Automation
     pyautogui \
-    requests_cache \
+    # Finance
     yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
-    statsmodels
+    # Data
+    h5py
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"
 
+# +----------------------------------------------------------------------+
+# | Setup zsh, ohmyzsh, powerline fonts.                                 |
+# | Setup zsh plugins: autosuggestions, autocompletions, history search. |
+# +----------------------------------------------------------------------+
+
+ENV TERM=xterm-256color \
+    ZSH_THEME=agnoster
+
+# Setup zsh for the root user
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN echo "ZSH" && \
+    apt-get update && apt-get install --no-install-recommends --assume-yes \
+    zsh fontconfig fonts-powerline && \
+    # Install Oh My Zsh
+    curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh && \
+    # Add Zsh plugins
+    git clone --depth=1 --no-tags https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions && \
+    git clone --depth=1 --no-tags https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions && \
+    git clone --depth=1 --no-tags https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search && \
+    # Update .zshrc
+    sed -i \
+      -e 's/^plugins=(git.*)/plugins=(git zsh-completions zsh-autosuggestions zsh-history-substring-search)/' \
+      -e 's/^ZSH_THEME="[^"]*"/ZSH_THEME="robbyrussell"/' \
+      -e 's/^# *DISABLE_UPDATE_PROMPT="true"/DISABLE_UPDATE_PROMPT="true"/' \
+      -e 's/^# *DISABLE_AUTO_UPDATE="true"/DISABLE_AUTO_UPDATE="true"/' \
+    /root/.zshrc && \
+	# Cleanup
+	apt-get autoremove -y && \
+    apt-get clean autoclean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Set the default shell to zsh after it is installed
+ENV SHELL=/bin/zsh
+
 # Re-enable dialog mode for apt-get
 ENV DEBIAN_FRONTEND=dialog
+

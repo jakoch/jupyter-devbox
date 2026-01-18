@@ -32,7 +32,7 @@
 			],
 			"settings": {
 				"extensions.ignoreRecommendations": true,
-				"terminal.integrated.defaultProfile.linux": "bash",
+				"terminal.integrated.defaultProfile.linux": "zsh",
 				// automatic activation of the selected python environment for the terminal = venv activate
 				"python.terminal.activateEnvironment": true,
 				// help vscode to find the python in our venv
