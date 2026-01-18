@@ -142,6 +142,7 @@ jobs:
           ' notebooks/check_devbox.ipynb > notebooks/check_devbox_versioned.ipynb
           echo "Run container to convert the pre-processed notebook to HTML"
           docker run --rm \
+            --platform ${{ matrix.config.platform }} \
             -v "${{ github.workspace }}/notebooks:/workspace/notebooks" \
             "$image" \
             bash -c 'set -euxo pipefail
