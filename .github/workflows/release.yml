@@ -124,7 +124,8 @@ jobs:
         run: |
           digest="${{ steps.build.outputs.digest }}"
           image="${{ env.GHCR_IMAGE }}@${digest}"
-          version=$(jq -c . info.json)
+          echo "JSON to JSON-escaped string and remove newline"
+          version=$(jq -rc . info.json | jq -Rs 'rtrimstr("\n")')
           docker run --rm \
             -v "${{ github.workspace }}/notebooks:/workspace/notebooks" \
             -e VERSION="$version" \
