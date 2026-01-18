@@ -26,3 +26,39 @@ If a notebook cell contains IPython magics or syntax that isn’t
 guaranteed to be valid Python, Black will leave it untouched by design.
 
 See: https://github.com/psf/black/blob/main/docs/faq.md#why-is-my-jupyter-notebook-cell-not-formatted
+
+## Spellchecker
+
+### Disabling cSpell
+
+The dev container installs the Code Spell Checker extension (streetsidesoftware.code-spell-checker),
+which is also known as CSpell, see `.devcontainer\devcontainer.json`.
+But it doesn't configure this extension in any way.
+
+This means that the extension uses default settings, which enables
+spell checkings for file types like Markdown and Python and display warnings inline.
+
+You can disable the checking of the Python code easily:
+
+Open VS Code’s Command Palette `Command Palette... (Ctrl+Shift+P)`,
+then run run `^Spell: Open Spell Checker Settings`.
+Or click the `{}` icon in the bottom status bar of VSCode.
+
+In settings, find `@ext:streetsidesoftware.code-spell-checker enabledFileTypes`
+and remove "Python" from the list or set it to false.
+
+That should clear up any spellchecker warning.
+
+This is also covered in the official extension documentation:
+https://streetsidesoftware.com/vscode-spell-checker/#enable--disable-file-types
+
+Of course, you could disable the whole extension by setting `cSpell.enabled` to false.
+
+### Configuring cSpell
+
+Of course, you can configure this extension to fit your needs.
+To get started, you could add a `cspell.json` to the project root.
+Then configure which files to include or exclude, add words to ignore
+list and you can also setup custom dictionaries for domain-specific vocab,
+like science/tech/math terms.
+
