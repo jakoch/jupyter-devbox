@@ -64,7 +64,7 @@ jobs:
           platforms: ${{ matrix.config.platform }}
 
       - name: 🔽 Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: 🔒 Login to DockerHub Container Registry
         if: github.event_name != 'pull_request'
@@ -223,7 +223,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🔽 Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3 # https://github.com/docker/setup-buildx-action
+        uses: docker/setup-buildx-action@v4 # https://github.com/docker/setup-buildx-action
 
       - name: ✏ Setup Docker Metadata
         id: metadata
