@@ -106,7 +106,7 @@ jobs:
 
       - name: 📦 🚀 Build and Push by Digest
         id: build
-        uses: docker/build-push-action@v6 # https://github.com/docker/build-push-action
+        uses: docker/build-push-action@v7 # https://github.com/docker/build-push-action
         with:
           context: .
           file: .devcontainer/${{ matrix.config.folder }}/Dockerfile
