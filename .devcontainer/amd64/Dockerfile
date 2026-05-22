@@ -40,16 +40,10 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # | SETUP PACKAGES              |
 # +-----------------------------+
 
-# Setup User and enable sudo
-RUN groupadd --gid $USER_GID $USERNAME && \
-    useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
-    echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
-    chmod 0440 /etc/sudoers.d/$USERNAME
-
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
     dialog sudo \
-    git zsh curl wget nano openssh-client ca-certificates tzdata locales \
+    git curl wget nano openssh-client ca-certificates tzdata locales \
     gcc g++ build-essential cmake ninja-build \
     zip unzip bzip2 \
     libjpeg-dev libpng-dev libpq-dev \
@@ -70,23 +64,22 @@ RUN apt-get update && \
     apt-get autoclean -y && \
     rm -rf /var/lib/apt/lists/*
 
+# Setup User and enable sudo
+RUN groupadd --gid $USER_GID $USERNAME && \
+    useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
+    echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
+    chmod 0440 /etc/sudoers.d/$USERNAME
+
 # Set locale and timezone
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG=en_US.utf8 TZ=Etc/UTC
 
-# Use a virtual environment for Python (to avoid PEP668 "externally managed environment" error).
 ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+ENV PATH="/root/.local/bin:/opt/venv/bin:$PATH"
 
-# Install Python Packages (base)
-RUN pip config --user set global.disable-pip-version-check true && \
-    pip config --user set global.progress_bar off && \
-    pip config --user set global.no-cache-dir true && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools && \
-    pip install --upgrade wheel && \
-    pip install uv
+# Install uv and create virtual environment
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    uv venv $VIRTUAL_ENV
 
 # Install Python Packages using uv
 RUN uv pip install \
@@ -122,7 +115,7 @@ RUN uv pip install \
     # Data
     h5py && \
     # Cleanup uv cache to reduce image size
-    uv cache clean
+    /root/.local/bin/uv cache clean
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"

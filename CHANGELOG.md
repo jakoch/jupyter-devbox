@@ -11,6 +11,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 "It was a bright day in April, and the clocks were striking thirteen." - 1984
 
+### Added
+
+- added uv cache cleanup after package installation to reduce image size (ref. [#21](https://github.com/jakoch/jupyter-devbox/issues/21))
+
+### Changed
+
+- Dockerfile:
+  - replaced `python3 -m venv` with `uv venv` for faster venv creation
+  - replaced `pip install uv` with direct uv binary download (`curl | sh`)
+  - moved `SHELL` directive to top for earlier pipefail coverage
+  - merged apt-get RUN commands to reduce layers
+  - removed `apt-utils` (cosmetic only, not required)
+  - removed `zsh` from main apt list to avoid duplicate install (zsh layer is self-contained)
+
+### Removed
+
+- Dockerfile: removed pip config boilerplate (`pip config set global.*`, `pip install --upgrade pip/setuptools/wheel`)
+
 ## [2.0.1] - 2026-01-18
 
 This release focuses on three main areas:
