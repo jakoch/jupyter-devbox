@@ -23,6 +23,7 @@ on:
 env:
   DOCKERHUB_IMAGE: ${{ github.repository }}
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
+  GH_PAGES_DIR: /tmp/gh-pages
 
 jobs:
 
@@ -193,7 +194,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     needs:
@@ -264,6 +265,65 @@ jobs:
       - name: 🔍 Inspect Manifest
         run: |
           docker buildx imagetools inspect ${{ env.GHCR_IMAGE }}:latest --raw
+
+      - name: 🤘 Checkout gh-pages branch
+        id: checkout
+        continue-on-error: true
+        uses: actions/checkout@v6 # https://github.com/actions/checkout
+        with:
+          ref: gh-pages
+          path: ${{ env.GH_PAGES_DIR }}
+          fetch-depth: 1
+
+      - name: ✏ Create orphan gh-pages branch (first run)
+        if: steps.checkout.outcome == 'failure'
+        run: |
+          mkdir -p ${{ env.GH_PAGES_DIR }}
+          cd ${{ env.GH_PAGES_DIR }}
+          git init
+          git checkout --orphan gh-pages
+
+      - name: 🔽 Download all version artifacts
+        uses: actions/download-artifact@v8 # https://github.com/actions/download-artifact
+        with:
+          pattern: 'notebook-check-devbox-*'
+          merge-multiple: true
+          path: ${{ env.GH_PAGES_DIR }}
+
+      - name: ✏ Create version.json, index.html, .nojekyll
+        run: |
+          touch ${{ env.GH_PAGES_DIR }}/.nojekyll
+          jq -n \
+            --arg version "${{ github.ref_name }}" \
+            --arg commit "${{ github.sha }}" \
+            --arg date "$(date -u +%F)" \
+            '{ version: $version, commit: $commit, date: $date }' > ${{ env.GH_PAGES_DIR }}/version.json
+          cat > ${{ env.GH_PAGES_DIR }}/index.html <<-EOF
+          <!DOCTYPE html>
+          <html lang="en">
+          <head><meta charset="utf-8"><title>jupyter-devbox</title></head>
+          <body>
+            <h1>jupyter-devbox ${{ github.ref_name }} <br><small>Commit: ${GITHUB_SHA:0:9} | Date: $(date -u +%F)</small></h1>
+            <p>A Docker-based development container for Jupyter Notebooks with a focus on
+            Computer Vision, Machine Learning, Finance, Statistics and Visualization.</p>
+            <ul>
+              <li><a href="version.json">Build metadata (version.json)</a></li>
+              <li><a href="check_devbox_amd64.html">Package report (linux/amd64)</a></li>
+              <li><a href="check_devbox_arm64v8.html">Package report (linux/arm64)</a></li>
+            </ul>
+          </body>
+          </html>
+          EOF
+
+      - name: ✔ Commit and push to gh-pages
+        working-directory: ${{ env.GH_PAGES_DIR }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --staged --quiet \
+            || git commit -m "Publish site from ${GITHUB_REPOSITORY}@${GITHUB_SHA:0:9}"
+          git push
 
       #- name: 🛡️🔍 Scan Image for Vulnerabilities
       #  uses: aquasecurity/trivy-action@0.36.0 # https://github.com/aquasecurity/trivy-action
