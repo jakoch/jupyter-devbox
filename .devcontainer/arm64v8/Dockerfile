@@ -121,7 +121,9 @@ RUN uv pip install \
     # Finance
     yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
     # Data
-    h5py
+    h5py && \
+    # Cleanup uv cache to reduce image size
+    uv cache clean
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"
