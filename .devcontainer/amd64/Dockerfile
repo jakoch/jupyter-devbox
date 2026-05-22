@@ -23,7 +23,7 @@ LABEL org.opencontainers.image.licenses="MIT" \
 # | ARGS                        |
 # +-----------------------------+
 
-ARG USERNAME=vscode
+ARG USERNAME=root
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -64,11 +64,13 @@ RUN apt-get update && \
     apt-get autoclean -y && \
     rm -rf /var/lib/apt/lists/*
 
-# Setup User and enable sudo
-RUN groupadd --gid $USER_GID $USERNAME && \
-    useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
-    echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
-    chmod 0440 /etc/sudoers.d/$USERNAME
+# Setup non-root user (only when NB_USER is not root)
+RUN if [ "$USERNAME" != "root" ]; then \
+        groupadd --gid $USER_GID $USERNAME && \
+        useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
+        echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME && \
+        chmod 0440 /etc/sudoers.d/$USERNAME; \
+    fi
 
 # Set locale and timezone
 RUN localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
@@ -108,14 +110,12 @@ RUN uv pip install \
     scipy scikit-learn statsmodels \
     # DB
     duckdb sqlalchemy \
-    # Automation
-    pyautogui \
     # Finance
     yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase \
     # Data
     h5py && \
     # Cleanup uv cache to reduce image size
-    /root/.local/bin/uv cache clean
+	    uv cache clean
 
 # Install ipykernel
 RUN /opt/venv/bin/python -m ipykernel install --user --name="jupyter_devbox" --display-name="jupyter_devbox_python3_venv"
@@ -145,8 +145,8 @@ RUN echo "ZSH" && \
       -e 's/^# *DISABLE_UPDATE_PROMPT="true"/DISABLE_UPDATE_PROMPT="true"/' \
       -e 's/^# *DISABLE_AUTO_UPDATE="true"/DISABLE_AUTO_UPDATE="true"/' \
     /root/.zshrc && \
-	# Cleanup
-	apt-get autoremove -y && \
+    # Cleanup
+    apt-get autoremove -y && \
     apt-get clean autoclean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

@@ -14,20 +14,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - added uv cache cleanup after package installation to reduce image size (ref. [#21](https://github.com/jakoch/jupyter-devbox/issues/21))
+- devcontainer.json: pass `USERNAME`/`USER_UID` as build args for easy forking to non-root user
 
 ### Changed
 
+- devcontainer.json:
+  - replaced deprecated `appPort` with `forwardPorts`
+  - migrated from `dockerFile` string to `build` object for build arg support
 - Dockerfile:
   - replaced `python3 -m venv` with `uv venv` for faster venv creation
   - replaced `pip install uv` with direct uv binary download (`curl | sh`)
-  - moved `SHELL` directive to top for earlier pipefail coverage
+  - moved `SHELL` directive to top for earlier pipefall coverage
   - merged apt-get RUN commands to reduce layers
   - removed `apt-utils` (cosmetic only, not required)
   - removed `zsh` from main apt list to avoid duplicate install (zsh layer is self-contained)
+  - switched to official VSCode `USERNAME`/`USER_UID`/`USER_GID` build args; user creation is now conditional (skipped when `USERNAME=root`)
+  - fixed tab/space indentation on cleanup lines
+  - replaced absolute path `uv cache clean` with `uv cache clean` (already on `$PATH`)
 
 ### Removed
 
-- Dockerfile: removed pip config boilerplate (`pip config set global.*`, `pip install --upgrade pip/setuptools/wheel`)
+- Dockerfile:
+  - removed pip config boilerplate (`pip config set global.*`, `pip install --upgrade pip/setuptools/wheel`)
+  - removed `pyautogui` (requires X server)
 
 ## [2.0.1] - 2026-01-18
 

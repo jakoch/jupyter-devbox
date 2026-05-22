@@ -63,7 +63,6 @@ The installed Python libraries are:
 - scipy scikit-learn
 - duckdb
 - sqlalchemy
-- pyautogui
 - requests_cache
 - yfinance alpha_vantage nasdaq-data-link finnhub-python financetoolkit financedatabase
 - statsmodels

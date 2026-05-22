@@ -1,10 +1,15 @@
 // For format details, see https://aka.ms/vscode-remote/devcontainer.json
 {
 	"name": "jupyter-devbox",
-	// The repository contains two images:
-	// "amd64/Dockerfile (default)
-	// "arm64v8/Dockerfile"
-	"dockerFile": "amd64/Dockerfile",
+	// Forkers: change USERNAME and remoteUser to your own username.
+	// The Dockerfile creates a non-root sudo-enabled user only when USERNAME != "root".
+	"build": {
+		"dockerfile": "amd64/Dockerfile",
+		"args": {
+			"USERNAME": "root",
+			"USER_UID": "1000"
+		}
+	},
 	// config settings you would have in ".vscode/settings.json"
 	"customizations": {
 		"vscode": {
@@ -57,20 +62,11 @@
 			}
 		}
 	},
-	// -- External Ports --
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	//"forwardPorts": [],
-	//
-	// -- Internal Ports --
-	// Use the next line if you want to publish any ports.
-	// Jupyter Notebook listening on port 8888... "8888:8888"
-	// TensorBoard listening on port 6006...      "6006:6006"
-	"appPort": [
-		"8888:8888"
-	],
+	// Forward container port 8888 (Jupyter Notebook) to the host
+	"forwardPorts": [8888],
 	// After Starting the Container, start the jupyter notebook
 	"postStartCommand": "chmod u+x start-notebook.sh && bash start-notebook.sh &",
-	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	// Forkers: change this to match USERNAME above
 	"remoteUser": "root"
 	//"mounts": [
 	//	"source=${localWorkspaceFolder},target=/home/ws-mount,type=bind,consistency=cached"
