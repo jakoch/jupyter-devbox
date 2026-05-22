@@ -23,7 +23,7 @@ on:
 env:
   DOCKERHUB_IMAGE: ${{ github.repository }}
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
-  GH_PAGES_DIR: /tmp/gh-pages
+  GH_PAGES_DIR: gh-pages
 
 jobs:
 
@@ -290,7 +290,7 @@ jobs:
           merge-multiple: true
           path: ${{ env.GH_PAGES_DIR }}
 
-      - name: ✏ Create version.json, index.html, .nojekyll
+      - name: 📝 Create site with version.json, index.html, .nojekyll
         run: |
           touch ${{ env.GH_PAGES_DIR }}/.nojekyll
           jq -n \
@@ -323,7 +323,7 @@ jobs:
           git add -A
           git diff --staged --quiet \
             || git commit -m "Publish site from ${GITHUB_REPOSITORY}@${GITHUB_SHA:0:9}"
-          git push
+          git push origin gh-pages
 
       #- name: 🛡️🔍 Scan Image for Vulnerabilities
       #  uses: aquasecurity/trivy-action@0.36.0 # https://github.com/aquasecurity/trivy-action
