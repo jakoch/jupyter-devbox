@@ -40,10 +40,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # | SETUP PACKAGES              |
 # +-----------------------------+
 
-# avoid debconf delaying package configuration, since apt-utils is not installed
-RUN apt-get update && \
-    apt-get -y install --no-install-recommends apt-utils dialog sudo 2>&1
-
 # Setup User and enable sudo
 RUN groupadd --gid $USER_GID $USERNAME && \
     useradd --uid $USER_UID --gid $USER_GID -m $USERNAME && \
@@ -52,6 +48,7 @@ RUN groupadd --gid $USER_GID $USERNAME && \
 
 RUN apt-get update && \
     apt-get -y install --no-install-recommends \
+    dialog sudo \
     git zsh curl wget nano openssh-client ca-certificates tzdata locales \
     gcc g++ build-essential cmake ninja-build \
     zip unzip bzip2 \
