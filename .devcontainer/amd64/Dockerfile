@@ -34,6 +34,8 @@ ARG USER_GID=$USER_UID
 ENV DEBIAN_FRONTEND=noninteractive \
     DEBCONF_NONINTERACTIVE_SEEN=true
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 # +-----------------------------+
 # | SETUP PACKAGES              |
 # +-----------------------------+
@@ -137,7 +139,6 @@ ENV TERM=xterm-256color \
     ZSH_THEME=agnoster
 
 # Setup zsh for the root user
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN echo "ZSH" && \
     apt-get update && apt-get install --no-install-recommends --assume-yes \
     zsh fontconfig fonts-powerline && \
