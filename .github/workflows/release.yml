@@ -57,7 +57,7 @@ jobs:
           docker-images: false
 
       - name: 🤘 Checkout
-        uses: actions/checkout@v6 # https://github.com/actions/checkout
+        uses: actions/checkout@v7 # https://github.com/actions/checkout
 
       - name: 🔽 Setup QEMU
         uses: docker/setup-qemu-action@v4 # https://github.com/docker/setup-qemu-action
@@ -269,7 +269,7 @@ jobs:
       - name: 🤘 Checkout gh-pages branch
         id: checkout
         continue-on-error: true
-        uses: actions/checkout@v6 # https://github.com/actions/checkout
+        uses: actions/checkout@v7 # https://github.com/actions/checkout
         with:
           ref: gh-pages
           path: ${{ env.GH_PAGES_DIR }}
