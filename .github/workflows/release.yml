@@ -180,7 +180,7 @@ jobs:
           retention-days: 1
 
       - name: 🔍 Run hadolint
-        uses: hadolint/hadolint-action@v3.3.0 # https://github.com/hadolint/hadolint-action
+        uses: hadolint/hadolint-action@v3.5.0 # https://github.com/hadolint/hadolint-action
         with:
           dockerfile: .devcontainer/${{ matrix.config.folder }}/Dockerfile
 
